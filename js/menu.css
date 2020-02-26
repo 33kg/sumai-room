@@ -1,0 +1,193 @@
+/*
+スライドメニュー
+*/
+
+/* カラー設定 */
+#slide_menu{background: #fff;}　/*スライドメニュー背景色*/
+#slide_menu ul li{border-bottom:1px solid #eee;} /*スライドメニュー区切色*/
+#slide_menu ul li a{color: #666;} /*スライドメニュー文字色*/
+#slide_menu li a:hover{background: #aaa;} /*スライドメニューOV色*/
+
+
+/* スライドインメニューに必要なところ */
+html {
+    position: relative;
+    overflow-x: hidden;
+	margin-top:0!important;
+	padding:0;
+}
+body{
+	overflow-x: hidden;
+	margin: 0;
+}
+
+#slide_menu{
+	position: fixed;
+	top: 0;
+	left: -100vw;
+	width: 100%;
+	height: calc( 100% - 66px);
+	z-index:1100;
+	overflow: scroll;
+	opacity:0.95;
+	}
+
+#slide_menu button{
+	display:block;
+    position: absolute;
+    top:0;
+	right:0;
+    outline: none;
+    border: none;
+    color: black;
+    cursor: pointer;
+	z-index:10;
+	background:none;
+	width:50px;
+	height:50px;
+    font-size: 26px;
+	}
+
+#container{
+	position: relative;
+	top:0 ;
+	right:0 ;
+	width: 100%;
+}
+.layer{
+    position: fixed;
+    top: 0;
+    z-index: 1;
+    display: none;
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+}
+body.open{
+    position: fixed;
+}
+
+
+/* 以下装飾など */
+#slide_menu .block{
+	padding:10px;
+	}
+#slide_menu ul{
+    margin: 0px auto 0 auto;
+    padding: 0;
+	letter-spacing: -0.4em;
+	text-align: left;
+	}
+
+#slide_menu ul li{
+	font-size:16px;
+	line-height:1.8em;
+	margin:0; padding:0;
+	letter-spacing: normal;
+	display: inline-block;
+	width:calc(100% / 1);
+	}
+#slide_menu ul li:nth-child(1){
+	width: 100%;
+	margin-bottom:10px;
+	}
+#slide_menu ul li strong{
+	text-align: left;
+	display: block;
+	}
+#slide_menu ul li h2{
+	font-size:16px;
+	line-height:1.8em;
+	text-align: left;
+	margin:0; padding:10px 0;
+	}
+#slide_menu ul li a{
+    display: block;
+    margin:0; padding:3px 10px;
+    text-align: left;
+    text-decoration: none;
+	line-height:2.4em;
+	}
+#slide_menu ul li a span{
+  display:inline-block;
+  padding-left:2em;
+  font-size:11px;
+  }
+#slide_menu ul#listProduct {
+    display: none;
+	}
+#slide_menu ul#listProduct li{
+ 	padding-left:2em;
+	}
+
+#container{
+    position: relative;
+    top: 0;
+    right: 0;
+    overflow: hidden;
+    margin: 0 auto;
+	}
+
+/*
+============================================================dropmenu
+*/
+.dropmenu{
+  *zoom: 1;
+  list-style-type: none;
+}
+.dropmenu:before, .dropmenu:after{
+  content: "";
+  display: table;
+}
+.dropmenu:after{
+  clear: both;
+}
+.dropmenu li{
+  position: relative;
+}
+.dropmenu li a{
+  display: block;
+  text-decoration: none;
+}
+.dropmenu li ul{
+  list-style: none;
+  position: absolute;
+  z-index: 9999;
+  top: 100%;
+  left: -20px;
+  margin: 0;
+  padding: 10px;
+  width:200px;
+}
+.dropmenu li ul li{
+  width: 100%;
+  border:none;
+}
+.dropmenu li ul li a{
+  text-align: left;
+}
+.dropmenu li:hover > a{
+
+}
+.dropmenu li a:hover{
+	color: red;
+}
+
+#fade-in li ul{
+  visibility: hidden;
+  opacity: 0;
+  transition: 0s;
+}
+#fade-in li:hover ul{
+  visibility: visible;
+  opacity: 1;
+}
+#fade-in li ul li a{
+  visibility: hidden;
+  opacity: 0;
+  transition: .5s;
+}
+#fade-in li:hover ul li a{
+  visibility: visible;
+  opacity: 1;
+}
