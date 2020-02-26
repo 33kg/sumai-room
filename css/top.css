@@ -1,0 +1,227 @@
+/*
+=================================================== top
+*/
+
+.wrap-gallery{
+	width:100%;
+	margin:0 auto;
+	}
+.swiper-container img{
+	width:100%!important;
+	}
+
+.swiper-button-next,
+.swiper-button-prev {
+    margin: auto;
+	}
+
+.gallery-top .wrap-button,
+.gallery-top2 .wrap-button,
+.gallery-top3 .wrap-button{
+	height: 100%;
+    margin: 0 auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+	}
+.gallery-top .wrap-button{
+	width: 65%;
+	}
+
+.wrap-button .swiper-button-prev,
+.wrap-button .swiper-button-next{
+	top: calc(50% - 15px);
+	}
+
+
+.wrap-gallery p.date{
+	width:calc(100% - 20px);
+	max-width:1080px;
+	font-size:10px;
+    margin: 10px auto 0 auto;
+	color:#92909B;
+	}
+/*
+--------------------------------------------*
+住まいのコンシェルジュ
+*/
+.wrap-block h2{
+	position: relative;
+	}
+.wrap-block h2 ul.icon{
+	position: absolute;
+	right:0;
+	top:10px;
+	letter-spacing: -0.4em;
+	}
+.wrap-block h2 ul.icon li{
+	display: inline-block;
+	width:50px;
+	margin-right:10px;
+	}
+
+/*
+--------------------------------------------*
+Contents
+*/
+ul.contents{
+	letter-spacing: -0.4em;
+	}
+ul.contents li{
+	letter-spacing: normal;
+	width:calc((100% - 25px)/2);
+	display: inline-block;
+	margin-right:25px;
+	margin-bottom:25px;
+	position: relative;
+	}
+ul.contents li:nth-child(2n){
+	margin-right:0;
+	}
+ul.contents li img{
+	border-radius:20px;
+	}
+ul.contents li span{
+	display: block;
+    text-align: center;
+    position: absolute;
+    margin: auto;
+    top: calc(50px - 0px);
+    left: 0;
+    right: 0;
+    bottom: 0;
+    font-size: 20px;
+    line-height: 20px;
+	z-index: 1;
+	color: #fff;
+	filter: drop-shadow(0 1px 3px rgba(0,0,0,1.0));
+	}
+/*
+--------------------------------------------*
+Topics
+*/
+ul.topics{
+	letter-spacing: -0.4em;
+	}
+ul.topics li{
+	width:calc((100% - 40px)/3);
+	display: inline-block;
+	margin-right:20px;
+	margin-bottom:25px;
+	position: relative;
+	letter-spacing: -0.4em;
+	}
+ul.topics li:nth-child(1),
+ul.topics li:nth-child(2){
+	width:calc((100% - 25px)/2);
+	}
+ul.topics li:nth-child(2){
+	margin-right:0;
+	}
+ul.topics li:nth-child(3n+2){
+	margin-right:0;
+	}
+
+ul.topics li p{
+	margin-bottom:5px;
+	letter-spacing: normal;
+	display: inline-block;
+	font-size: 12px;
+	}
+ul.topics li p.img{
+	width:100%;
+	}
+ul.topics li p.title{
+	width:100%;
+	font-size:15px;
+	font-weight: bold;
+	}
+ul.topics li p.kind{
+	width:50%;
+	}
+ul.topics li p.kind span{
+	padding:2px 5px;
+    font-family: 'Anton', sans-serif;
+	color:#fff;
+	background: #92909B;
+	font-size:10px;
+	}
+ul.topics li p.date{
+	width:50%;
+	text-align: right;
+	color: #92909B;
+	letter-spacing: 3px;
+	}
+
+
+/*
+--------------------------------------------*
+Access
+*/
+.wrap-access{
+	letter-spacing: -0.4em;
+	width:calc(100% - 200px);
+	margin: 0 auto;
+	}
+.wrap-access div.tex,
+.wrap-access div.map{
+	letter-spacing: normal;
+	display: inline-block;
+	vertical-align: top;
+	margin-bottom:40px;
+	}
+.wrap-access div.tex{
+	width: 350px;
+	}
+.wrap-access div.map{
+	width: calc(100% - 350px);
+	}
+.wrap-access div.map iframe{
+	width:100%;
+	height:200px;
+	}
+
+/*
+--------------------------------------------*
+Others
+*/
+ul.others{
+	letter-spacing: -0.4em;
+	}
+ul.others li{
+	width:calc((100% - 40px)/3);
+	display: inline-block;
+	margin-right:20px;
+	margin-bottom:25px;
+	position: relative;
+	letter-spacing: -0.4em;
+	}
+ul.others li:nth-child(3n){
+	margin-right:0;
+	}
+ul.others li span{
+    position: absolute;
+    bottom: 10px;
+    background: #fff;
+    display: block;
+    width: calc(100% - 50px);
+    z-index: 1;
+    left: 0;
+	height:25px;
+	font-size: 15px;
+	line-height:25px;
+	padding-left:10px;
+	}
+ul.others li span:after{
+    position: absolute;
+    content: '';
+    right: -10px;
+    top: 0px;
+    width: 0;
+    height: 0;
+    border: none;
+    border-right: solid 10px transparent;
+    border-top: solid 25px #fff;
+    z-index: 1;
+	}
