@@ -22,7 +22,7 @@ get_header(); ?>
 				<div class="swiper-button-prev"></div>
 				<div class="swiper-button-next"></div>
 			</div>
-			<p class="date">更新日：2020.2.25</p>
+			<p class="date">更新日：<?php echo date( "Y.m.d", strtotime( get_lastpostmodified('blog') ) ); ?></p>
 			<script>
 			    var galleryTop = new Swiper('.gallery-top', {
 					loop: true,
@@ -118,7 +118,7 @@ get_header(); ?>
 	<section class="wrap-block">
 		<h2>CONTENTS<span>不動産のお悩み解決します</span></h2>
 		<ul class="contents">
-		<li><a href="<?php echo esc_url( home_url( '/' ) ); ?>inheritance"><img src="<?php echo get_template_directory_uri(); ?>/images/top/pc_bn_souzoku.png"><span>不動産相続の相談窓口</span></a></li>
+		<li><a href="https://fsouzoku.jp/"><img src="<?php echo get_template_directory_uri(); ?>/images/top/pc_bn_souzoku.png"><span>不動産相続の相談窓口</span></a></li>
 		<li><a href="<?php echo esc_url( home_url( '/' ) ); ?>management"><img src="<?php echo get_template_directory_uri(); ?>/images/top/pc_bn_akiya.png"><span>空き家管理サービス</span></a></li>
 		<li><a href="<?php echo esc_url( home_url( '/' ) ); ?>owner"><img src="<?php echo get_template_directory_uri(); ?>/images/top/pc_bn_owner.png"><span>オーナー様へ</span></a></li>
 		<li><a href="<?php echo esc_url( home_url( '/' ) ); ?>assessment"><img src="<?php echo get_template_directory_uri(); ?>/images/top/pc_bn_satei.png"><span>売却査定依頼</span></a></li>
@@ -165,9 +165,9 @@ get_header(); ?>
 	<section class="wrap-block">
 		<h2>OTHERS</h2>
 		<ul class="others">
-		<li><a href="<?php echo esc_url( home_url( '/' ) ); ?>inheritance"><img src="<?php echo get_template_directory_uri(); ?>/images/top/others_omoi.png"><span>住まいるーむ情報館の想い</span></a></li>
-		<li><a href="<?php echo esc_url( home_url( '/' ) ); ?>inheritance"><img src="<?php echo get_template_directory_uri(); ?>/images/top/others_blog.png"><span>社長の「幸せ・ブログ」</span></a></li>
-		<li><a href="<?php echo esc_url( home_url( '/' ) ); ?>inheritance"><img src="<?php echo get_template_directory_uri(); ?>/images/top/others_president.png"><span>社長の流儀</span></a></li>
+		<li><a href="<?php echo esc_url( home_url( '/' ) ); ?>tought"><img src="<?php echo get_template_directory_uri(); ?>/images/top/others_omoi.png"><span>住まいるーむ情報館の想い</span></a></li>
+		<li><a href="https://ameblo.jp/happy-sumairoom/"><img src="<?php echo get_template_directory_uri(); ?>/images/top/others_blog.png"><span>社長の「幸せ・ブログ」</span></a></li>
+		<li><a href="<?php echo esc_url( home_url( '/' ) ); ?>presidents-style"><img src="<?php echo get_template_directory_uri(); ?>/images/top/others_president.png"><span>社長の流儀</span></a></li>
 		</ul>
 	</section>
 
