@@ -128,13 +128,7 @@ get_header(); ?>
 	<section class="wrap-block">
 		<h2>TOPICS<span>住まいるーむ情報</span></h2>
 		<ul class="topics">
-		<li><?php include("inc_topics.php"); ?></li>
-		<?php //繰り返し部分  ?>
-		<li><?php include("inc_topics.php"); ?></li>
-		<li><?php include("inc_topics.php"); ?></li>
-		<li><?php include("inc_topics.php"); ?></li>
-		<li><?php include("inc_topics.php"); ?></li>
-		<?php // ./繰り返し部分  ?>
+			<?php include("inc_topics.php"); ?>
 		</ul>
 		<div class="wrap-link"><a href="<?php echo esc_url( home_url( '/' ) ); ?>topics">more</a></div>
 	</section>
