@@ -1,0 +1,93 @@
+/*
+Theme Name: 住まいルーム情報館
+Theme URI: 
+Author: icecream Design.
+Author URI: https://wordpress.org/
+Description: Twenty Sixteen is a modernized take on an ever-popular WordPress layout — the horizontal masthead with an optional right sidebar that works perfectly for blogs and websites. It has custom color options with beautiful default color schemes, a harmonious fluid grid using a mobile-first approach, and impeccable polish in every detail. Twenty Sixteen will make your WordPress look beautiful everywhere.
+Version: 2.0
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Tags: one-column, two-columns, right-sidebar, accessibility-ready, custom-background, custom-colors, custom-header, custom-menu, editor-style, featured-images, flexible-header, microformats, post-formats, rtl-language-support, sticky-post, threaded-comments, translation-ready, blog
+Text Domain: twentysixteen
+
+This theme, like WordPress, is licensed under the GPL.
+Use it to make something cool, have fun, and share what you've learned with others.
+*/
+body{
+	padding:0;
+	margin:0;
+	}
+
+body,p,div,li,th,td,strong,a,dt,dd{
+	font-family: 'Noto Sans JP', sans-serif;
+	font-size: 16px;
+	line-height:28px;
+	}
+body,p,div,li,th,td,strong,a,
+h1,h2,h3{
+	color:#3D3D3D;
+	}
+img,video{
+	vertical-align: top;
+	}
+
+.smt{
+	display: none;
+	}
+
+.content-area{
+	padding:0 0 40px 0;
+	margin:0 auto 0 auto;
+	}
+
+.content-area img{
+	max-width:100%;
+	}
+
+main {
+	position: relative;
+	overflow: hidden;
+	margin: 0;
+	padding: 0;
+	}
+main div:nth-child(2):before {
+  content: '';
+  position: absolute;
+  top: 40%;
+  left: 0;
+  width: 200%;
+  height: 50%;
+  margin: 3% -10% 0;
+  background: #efefef;
+  background: url("./images/bg_naname.png");
+  -webkit-transform-origin: left center;
+  -ms-transform-origin: left center;
+  transform-origin: left center;
+  -webkit-transform: rotate(5deg);
+  -ms-transform: rotate(5deg);
+  transform: rotate(5deg);
+  z-index: -1;
+}
+
+/*フェード*/
+.fadeConts {
+	opacity: 0;
+	-webkit-transition: .5s;
+	-o-transition: .5s;
+	transition: .5s;
+	}
+.fadeConts.show {
+	opacity: 1;
+	}
+
+
+@media (max-width: 768px) {
+
+.pc{
+	display: none!important;
+	}
+.smt{
+	display: block!important;
+	}
+
+}
