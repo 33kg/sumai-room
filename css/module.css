@@ -2,6 +2,10 @@
 module.css
 */
 
+#nendebcopy{
+	display: none;
+	}
+
 body,p,div,li,th,td,dt,dd,span{
 	font-family: 'Noto Sans JP', sans-serif;
 	font-weight: 100;
@@ -276,4 +280,359 @@ ul.paging_before_after li:nth-child(2):after{
 	margin-left:5px;
 	border-color:  #565656 #565656 transparent transparent;
 
+	}
+
+
+/*
+--------------------------------------------*
+About Concierge
+*/
+.about_concierge{
+
+	}
+.about_concierge .wrap-block h3{
+	font-size: 14px;
+	line-height:28px;
+	margin-bottom:10px;
+	}
+.about_concierge .wrap-block p.tex{
+	font-size: 11px;
+	line-height:18px;
+	}
+.about_concierge .wrap-block ul.step{
+	letter-spacing: -0.4em;
+	max-width:800px;
+	text-align: center;
+	margin: 40px auto;
+	}
+.about_concierge .wrap-block ul.step li{
+	display: inline-block;
+	width:calc((100% - 80px)/3);
+	margin-right:40px;
+	}
+.about_concierge .wrap-block ul.step li:nth-child(3n){
+	margin-right:0;
+	}
+
+
+.about_concierge .wrap-block.auther{
+	max-width:100%;
+	}
+.about_concierge .wrap-block.auther a.to-list{
+	position: absolute;
+	right:0;
+	font-size:15px;
+	}
+.about_concierge .wrap-block.auther a.to-list strong{
+	color:#E86446;
+	display: inline-block;
+	margin-left:5px;
+	font-size:20px;
+	}
+.about_concierge .wrap-block.auther a.to-list span{
+	margin-top:-10px;
+	font-size:10px;
+	}
+
+.about_concierge .wrap-block.auther p.img,
+.about_concierge .wrap-block.auther div.wrap-tex{
+	width:100%:
+	}
+.about_concierge .wrap-block.auther p.img{
+	width:250px;
+	}
+.about_concierge .wrap-block.auther p.img img{
+	border-radius: inherit;
+	}
+.about_concierge .wrap-block.auther div.wrap-tex{
+    width: calc(100% - 290px);
+	}
+.about_concierge .wrap-block.auther div.wrap-tex p.name{
+	font-size:20px;
+	text-align:left;
+	font-weight: bold;
+	}
+.about_concierge .wrap-block.auther div.wrap-tex dl.spec{
+	letter-spacing:-0.4em;
+	margin-top:40px;
+	}
+.about_concierge .wrap-block.auther div.wrap-tex dl.spec dt,
+.about_concierge .wrap-block.auther div.wrap-tex dl.spec dd{
+	letter-spacing:normal;
+	display: inline-block;
+	vertical-align: top;
+	}
+.about_concierge .wrap-block.auther div.wrap-tex dl.spec dt{
+	width:60px;
+	background:#92909B;
+	font-size:10px;
+	margin-right:40px;
+	margin-bottom:10px;
+	text-align: center;
+	color:#fff;
+	}
+.about_concierge .wrap-block.auther div.wrap-tex dl.spec dd{
+	width: calc(100% - 100px);
+	}
+
+
+
+.company .wrap-block{
+	letter-spacing: -0.4em;
+	}
+.company .wrap-block h3,
+.company .wrap-block h3.double{
+	letter-spacing: 3px;
+	display: inline-block;
+	background: #E86446;
+	color:#fff;
+	padding:5px 10px;
+	font-size:16px;
+	width:180px;
+	vertical-align: top;
+	margin-right:80px;
+	position: relative;
+	height:36px;
+	}
+.company .wrap-block h3.double{
+	height:45px;
+	font-size: 13px;
+	}
+.company .wrap-block h3:after,
+.company .wrap-block h3.double:after{
+    position: absolute;
+    content: '';
+    right: -36px;
+    top: 0px;
+    width: 0;
+    height: 0;
+    border: none;
+    border-right: solid 36px transparent;
+    border-top: solid 36px #E86446;
+    z-index: 1;
+	}
+.company .wrap-block h3.double:after{
+    right: -45px;
+    border-right: solid 45px transparent;
+    border-top: solid 45px #E86446;
+    z-index: 1;
+	}
+.company .wrap-block h3 span{
+    font-size: 11px;
+    display: block;
+    position: absolute;
+    right: 5px;
+    top: 0;
+    bottom: 0;
+    vertical-align: middle;
+    height: 22px;
+    margin: auto;
+	}
+.company .wrap-block .wrap-inner{
+	letter-spacing: normal;
+	display: inline-block;
+	width:calc(100% - 260px);
+	}
+.company .wrap-block table{
+	width:100%;
+	border-collapse: collapse;
+	display: grid;
+	}
+.company .wrap-block table tbody{
+	display: table;
+	}
+.company .wrap-block table tr,
+.company .wrap-block table th,
+.company .wrap-block table td{
+	border:1px solid #92909B;
+	padding:10px;
+	font-size: 12px;
+	}
+.company .wrap-block table th{
+	width:200px;
+	background: #E1E1E6;
+	}
+.company .wrap-block table td{
+	width:calc(100% - 200px);
+	}
+.company .wrap-block p.tex{
+	font-size: 12px;
+	line-height:20px;
+	}
+.company .wrap-block .wrap-inner strong{
+	font-size:18px;
+	display: block;
+	margin-bottom:20px;
+	}
+
+.company .wrap-block p.tex strong{
+	font-size:14px;
+	margin:5px;
+	margin-top:20px;
+	}
+.company .wrap-block .wrap-inner .map{
+	margin:20px auto;
+	}
+.company .wrap-block .wrap-inner .map iframe{
+	width:100%
+	}
+
+
+.president_style .wrap-block h3{
+	letter-spacing: 3px;
+	display: inline-block;
+	background: #E86446;
+	color:#fff;
+	padding:5px 10px;
+	font-size:16px;
+	width:calc(100% - 200px);
+	min-width: 50%;
+	vertical-align: top;
+	margin-right:80px;
+	position: relative;
+	height:36px;
+	margin-bottom:40px;
+	}
+.president_style .wrap-block h3:after{
+    position: absolute;
+    content: '';
+    right: -36px;
+    top: 0px;
+    width: 0;
+    height: 0;
+    border: none;
+    border-right: solid 36px transparent;
+    border-top: solid 36px #E86446;
+    z-index: 1;
+	}
+
+
+
+
+
+
+.for_owners .wrap-block{
+	letter-spacing: -0.4em;
+	}
+.for_owners .wrap-block h3{
+	letter-spacing: 3px;
+	display: inline-block;
+	background: #E86446;
+	color:#fff;
+	padding:5px 10px;
+	font-size:16px;
+	width:180px;
+	vertical-align: top;
+	margin-right:80px;
+	position: relative;
+	height:36px;
+	}
+.for_owners .wrap-block h3:after{
+    position: absolute;
+    content: '';
+    right: -36px;
+    top: 0px;
+    width: 0;
+    height: 0;
+    border: none;
+    border-right: solid 36px transparent;
+    border-top: solid 36px #E86446;
+    z-index: 1;
+	}
+.for_owners .wrap-block h3 span{
+    font-size: 11px;
+    display: block;
+    position: absolute;
+    right: 5px;
+    top: 0;
+    bottom: 0;
+    vertical-align: middle;
+    height: 22px;
+    margin: auto;
+	}
+.for_owners .wrap-block .wrap-inner{
+	letter-spacing: normal;
+	display: inline-block;
+	width:calc(100% - 260px);
+	}
+.for_owners .wrap-block p.tex{
+	font-size: 12px;
+	line-height:20px;
+	}
+.for_owners .wrap-block .wrap-inner strong{
+	font-size:18px;
+	display: block;
+	margin-bottom:20px;
+	}
+
+.for_owners .wrap-block p.tex strong{
+	font-size:14px;
+	margin:5px;
+	margin-top:20px;
+	}
+
+
+
+
+
+.japan_vacant .wrap-block{
+	letter-spacing: -0.4em;
+	max-width:800px;
+	margin:40px auto 80px auto;
+	}
+.japan_vacant .wrap-block h3{
+	letter-spacing: 3px;
+	display: inline-block;
+	background: #01466F;
+	color:#fff;
+	padding:5px 10px;
+	font-size:16px;
+	width:180px;
+	vertical-align: top;
+	margin-right:80px;
+	position: relative;
+	height:36px;
+	}
+.japan_vacant .wrap-block h3:after{
+    position: absolute;
+    content: '';
+    right: -36px;
+    top: 0px;
+    width: 0;
+    height: 0;
+    border: none;
+    border-right: solid 36px transparent;
+    border-top: solid 36px #01466F;
+    z-index: 1;
+	}
+.japan_vacant .wrap-block h3 span{
+    font-size: 11px;
+    display: block;
+    position: absolute;
+    right: 5px;
+    top: 0;
+    bottom: 0;
+    vertical-align: middle;
+    height: 22px;
+    margin: auto;
+	}
+.japan_vacant .wrap-block .wrap-inner{
+	letter-spacing: normal;
+	display: inline-block;
+	width:calc(100% - 260px);
+	}
+.japan_vacant .wrap-block p.tex{
+	font-size: 12px;
+	line-height:20px;
+	}
+.japan_vacant .wrap-block .wrap-inner strong{
+	font-size:18px;
+	display: block;
+	margin-bottom:20px;
+	}
+
+.japan_vacant .wrap-block p.tex strong{
+	font-size:14px;
+	margin:5px;
+	margin-top:20px;
 	}
