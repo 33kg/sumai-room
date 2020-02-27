@@ -166,7 +166,12 @@ if(my_custom_kaiin_view('kaiin_gazo', 0, 1)){
 		<section class="wrap-block wrap-recently_seen">
 			<h2>この他の物件</h2>
 			<ul class="recent-search">
-			<?php include("inc_property_rent.php"); ?>
+			<?php if( $syubetu == SYUBETU_CHINTAI ) {
+				include("inc_others_rent.php");
+			} else {
+				include("inc_others_buy.php");
+			}		
+			?>
 			</ul>
 			<div class="wrap-link"><a href="#">more</a></div>
 		</section>

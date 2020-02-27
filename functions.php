@@ -659,3 +659,640 @@ function get_post_type_archive_org_template( $template = '' ) {
    return $template;
 }
 add_filter( 'template_include', 'get_post_type_archive_org_template' , 11 );
+
+// 物件投稿画面で必要な情報のみ表示するように変更
+function custom_post_supports() {
+    //作成者の項目を削除
+    remove_post_type_support( 'fudo', 'author' );
+    // 抜粋の項目を削除
+    remove_post_type_support( 'fudo', 'excerpt' );
+    // CSVtypeのフィールドを削除
+    remove_action( 'admin_menu','my_custom_csvtype' );
+    remove_action( 'save_post', 'custom_save_csvtype' );
+    // metaフィールドを削除
+    remove_action('admin_menu', 'my_custom_meta');
+    remove_action('save_post', 'custom_save_meta');
+    // 社内用メモを削除
+    remove_action('admin_menu', 'my_custom_shanaimemo');
+    remove_action('save_post', 'custom_save_shanaimemo');
+    // 交通その他の項目を削除
+    remove_action('admin_menu', 'my_custom_koutsusonota');
+    remove_action('save_post', 'custom_save_koutsusonota');
+    // 物件番号・掲載期限日の削除
+    remove_action('admin_menu', 'my_custom_shikibesu');
+    remove_action('save_post', 'custom_save_shikibesu');
+    //金銭面の削除
+    remove_action('admin_menu', 'my_custom_kinsenmen');
+    remove_action('save_post', 'custom_save_kakaku');
+
+
+}
+add_action( 'init', 'custom_post_supports' );
+
+
+
+// 社内用メモの項目を変更する
+function fudo_custom_shanaimemo() {
+    add_meta_box('my_custom_shanaimemo_area', '社内用メモ(非公開)', 'fudo_custom_shanaimemo_in', 'fudo', 'normal', 'high' );
+}
+function fudo_custom_shanaimemo_in() {
+    global $post;
+    echo '<input type="hidden" name="mycustom_shanaimemo_name" id="mycustom_shanaimemo_name" value="' .wp_create_nonce( plugin_basename(__FILE__) ) . '" />';
+
+    echo '<label for="shanaimemo">社内用メモ</label> ';
+    echo '<textarea rows="4" cols="60" name="shanaimemo" id="shanaimemo" style="width:100%" >'. esc_textarea(get_post_meta($post->ID,'shanaimemo',true)) .'</textarea>';
+}
+function fudo_custom_save_shanaimemo ( $post_id ) {
+    if ( isset($_POST['mycustom_shanaimemo_name']) ){
+        if ( !wp_verify_nonce( $_POST['mycustom_shanaimemo_name'], plugin_basename(__FILE__) )) {
+            return $post_id;
+        }
+        if ( isset($_POST['post_type']) && 'fudo' == $_POST['post_type'] ) {
+            if ( !current_user_can( 'edit_page', $post_id )) return $post_id;
+        } else {
+            if ( !current_user_can( 'edit_post', $post_id )) return $post_id;
+        }
+
+        // 社内用メモ
+        $my_custom_shanaimemo_data = isset($_POST['shanaimemo']) ? $_POST['shanaimemo'] : '';
+        if( strcmp($my_custom_shanaimemo_data,get_post_meta($post_id, 'shanaimemo', true)) != 0 )
+            update_post_meta($post_id, 'shanaimemo',$my_custom_shanaimemo_data);
+        elseif($my_custom_shanaimemo_data == "")
+            delete_post_meta($post_id, 'shanaimemo',get_post_meta($post_id,'shanaimemo',true));
+    }else{
+        return $post_id;
+    }
+}
+add_action( 'admin_menu', 'fudo_custom_shanaimemo' );
+add_action( 'save_post' , 'fudo_custom_save_shanaimemo' );
+
+// 物件番号の表示
+function fudo_custom_shikibesu() {
+    add_meta_box('my_custom_shikibesu_area', '物件', 'fudo_custom_shikibesu_in', 'fudo', 'advanced' );
+}
+function fudo_custom_shikibesu_in() {
+    global $post;
+    echo '<input type="hidden" name="mycustom_shikibesu_name" id="mycustom_shikibesu_name" value="' .wp_create_nonce( plugin_basename(__FILE__) ) . '" />';
+
+    echo '<table><tr>';
+
+    // 物件番号
+    echo '<td>';
+    echo '<label for="shikibesu">物件番号</label> ';
+    echo '</td>';
+    echo '<td>';
+    echo '<input type="text" name="shikibesu" value="'.get_post_meta($post->ID,'shikibesu',true).'" size="25" />';
+    echo ' <font color="#ff0000">*必須</font>';
+    echo '</td>';
+    echo '</tr></table>';
+}
+function fudo_custom_save_shikibesu( $post_id ) {
+    if ( isset($_POST['mycustom_shikibesu_name']) ){
+        if ( !wp_verify_nonce( $_POST['mycustom_shikibesu_name'], plugin_basename(__FILE__) )) {
+            return $post_id;
+        }
+        if ( isset($_POST['post_type']) && 'fudo' == $_POST['post_type'] ) {
+            if ( !current_user_can( 'edit_page', $post_id )) return $post_id;
+        } else {
+            if ( !current_user_can( 'edit_post', $post_id )) return $post_id;
+        }
+
+        // 自社管理物件番号
+        $my_custom_shikibesu_data = isset($_POST['shikibesu']) ? $_POST['shikibesu'] : '';
+        if( strcmp($my_custom_shikibesu_data,get_post_meta($post_id, 'shikibesu', true)) != 0 )
+            update_post_meta($post_id, 'shikibesu', $my_custom_shikibesu_data);
+
+        elseif($my_custom_shikibesu_data=="")
+            delete_post_meta($post_id, 'shikibesu',get_post_meta($post_id,'shikibesu',true));
+
+    }else{
+        return $post_id;
+    }
+}
+add_action('admin_menu', 'fudo_custom_shikibesu');
+add_action('save_post', 'fudo_custom_save_shikibesu');
+
+
+
+// 金銭面の項目ID追加
+function fudo_custom_kinsenmen() {
+    add_meta_box('my_custom_kinsenmen_area', '金銭面', 'fudo_custom_kinsenmen_in', 'fudo', 'advanced' );
+}
+
+function fudo_custom_kinsenmen_in() {
+    global $post;
+    echo '<input type="hidden" name="mycustom_kakaku_name" id="mycustom_kakaku_name" value="' .wp_create_nonce( plugin_basename(__FILE__) ) . '" />';
+
+    echo '<table><tr id="kakaku">';
+
+    // 賃料・価格 ※ 単位：円
+    echo '<td>';
+    echo '<label for="kakaku">賃料・価格</label> ';
+    echo '</td>';
+
+    echo '<td>';
+    echo '<input type="text" name="kakaku" value="'.get_post_meta($post->ID,'kakaku',true).'" size="15" /> 円 (半角数値)';
+    echo ' <font color="#ff0000">*</font><br />';
+    echo '</td>';
+
+
+    echo '</tr><tr id="kakakukoukai">';
+
+
+    // 税額 ※ 単位：円
+    //echo '<label for="kakakuzei">税額</label> ';
+    //echo '<input type="text" name="kakakuzei" value="'.get_post_meta($post->ID,'kakakuzei',true).'" size="15" /> 円 (半角数値)<br />';
+
+
+    // 価格公開	0:非公開 1:公開 (投資用物件以外では、常に公開される)
+    echo '<td>';
+    echo '<label for="kakakukoukai">価格公開</label> ';
+    echo '</td>';
+
+    echo '<td>';
+    echo '<select name="kakakukoukai">';
+    echo '<option value="">価格公開</option>';
+    echo '<option value="1"';  if(get_post_meta($post->ID,'kakakukoukai',true)=="1"){  	 echo ' selected="selected"';  }
+    echo '">公開</option>';
+    echo '<option value="0"';  if(get_post_meta($post->ID,'kakakukoukai',true)=="0"){  	 echo ' selected="selected"';  }
+    echo '">非公開</option>';
+    echo '</select><br />';
+    echo '</td>';
+
+
+    echo '</tr><tr id="kakakujoutai">';
+
+
+    // 価格状態	1:相談 2:確定 3:入札(投資用物件のみ)
+    echo '<td>';
+    echo '<label for="kakakujoutai">価格状態</label> ';
+    echo '</td>';
+
+    echo '<td>';
+    echo '<select name="kakakujoutai">';
+    echo '<option value="">価格状態(非公開の場合)</option>';
+    echo '<option value="1"';  if(get_post_meta($post->ID,'kakakujoutai',true)=="1"){  	 echo ' selected="selected"';  }
+    echo '">相談</option>';
+    echo '<option value="2"';  if(get_post_meta($post->ID,'kakakujoutai',true)=="2"){  	 echo ' selected="selected"';  }
+    echo '">確定</option>';
+    echo '<option value="3"';  if(get_post_meta($post->ID,'kakakujoutai',true)=="3"){  	 echo ' selected="selected"';  }
+    echo '">入札</option>';
+    echo '</select><br />';
+    echo '</td>';
+
+
+    echo '</tr><tr id="kakakutsubo">';
+
+
+    // 坪単価 単位：円
+    echo '<td>';
+    echo '<label for="kakakutsubo">坪単価</label> ';
+    echo '</td>';
+
+    echo '<td>';
+    echo '<input type="text" name="kakakutsubo" value="'.get_post_meta($post->ID,'kakakutsubo',true).'" size="15" /> 円 (半角数値)<br />';
+    echo '</td>';
+
+
+    echo '</tr><tr id="kakakukyouekihi">';
+
+
+    // 共益費・管理費 単位：円
+    echo '<td>';
+    echo '<label for="kakakukyouekihi">共益費・管理費</label> ';
+    echo '</td>';
+
+    echo '<td>';
+    echo '<input type="text" name="kakakukyouekihi" value="'.get_post_meta($post->ID,'kakakukyouekihi',true).'" size="15" /> 円 (半角数値)<br />';
+    echo '</td>';
+
+
+    echo '</tr><tr id="kakakureikin">';
+
+
+    // 礼金・月数 ※ 100以上の場合は単位は"円"、それ以外は"ヶ月"
+    echo '<td>';
+    echo '<label for="kakakureikin">礼金・月数</label> ';
+    echo '</td>';
+
+    echo '<td>';
+    echo '<input type="text" name="kakakureikin" value="'.get_post_meta($post->ID,'kakakureikin',true).'" size="10" /> (100以上の場合は単位は円、それ以外は ヶ月)<br />';
+    echo '</td>';
+
+
+    echo '</tr><tr id="kakakushikikin">';
+
+
+    // 敷金・月数 ※ 100以上の場合は単位は"円"、それ以外は"ヶ月"
+    echo '<td>';
+    echo '<label for="kakakushikikin">敷金・月数</label> ';
+    echo '</td>';
+
+    echo '<td>';
+    echo '<input type="text" name="kakakushikikin" value="'.get_post_meta($post->ID,'kakakushikikin',true).'" size="10" /> (100以上の場合は単位は円、それ以外は ヶ月)<br />';
+    echo '</td>';
+
+
+    echo '</tr><tr id="kakakuhoshoukin">';
+
+
+    // 保証金・月数 ※ 100以上の場合は単位は"円"、それ以外は"ヶ月"
+    echo '<td>';
+    echo '<label for="kakakuhoshoukin">保証金・月数</label> ';
+    echo '</td>';
+
+    echo '<td>';
+    echo '<input type="text" name="kakakuhoshoukin" value="'.get_post_meta($post->ID,'kakakuhoshoukin',true).'" size="10" /> (100以上の場合は単位は円、それ以外は ヶ月)<br />';
+    echo '</td>';
+
+
+    echo '</tr><tr id="kakakukenrikin">';
+
+    // 権利金 100以上の場合は単位は"円"、それ以外は"ヶ月"
+    echo '<td>';
+    echo '<label for="kakakukenrikin">権利金</label> ';
+    echo '</td>';
+
+    echo '<td>';
+    echo '<input type="text" name="kakakukenrikin" value="'.get_post_meta($post->ID,'kakakukenrikin',true).'" size="10" /> (100以上の場合は単位は円、それ以外は ヶ月)<br />';
+    echo '</td>';
+
+
+    echo '</tr><tr id="kakakushikibiki">';
+
+
+    // 償却・敷引金 1～99:"ヶ月"、101～200:100を引いて"%" 201以上の場合単位は"円"
+    echo '<td>';
+    echo '<label for="kakakushikibiki">償却・敷引金</label> ';
+    echo '</td>';
+
+    echo '<td>';
+    echo '<input type="text" name="kakakushikibiki" value="'.get_post_meta($post->ID,'kakakushikibiki',true).'" size="10" /> (1～99:ヶ月、101～200:100を引いて % 、201以上の場合単位は円)<br />';
+    echo '</td>';
+
+
+    echo '</tr><tr id="kakakukoushin">';
+
+
+    // 更新料	月数 ※ 100以上の場合は単位は"円"、それ以外は"ヶ月"
+    echo '<td>';
+    echo '<label for="kakakukoushin">更新料</label> ';
+    echo '</td>';
+
+    echo '<td>';
+    echo '<input type="text" name="kakakukoushin" value="'.get_post_meta($post->ID,'kakakukoushin',true).'" size="10" /> (100以上の場合は単位は円、それ以外は ヶ月)<br />';
+    echo '</td>';
+
+
+    echo '</tr><tr id="kakakuhyorimawari">';
+
+
+    // 満室時表面利回り
+    echo '<td>';
+    echo '<label for="kakakuhyorimawari">満室時表面利回り</label> ';
+    echo '</td>';
+
+    echo '<td>';
+    echo '<input type="text" name="kakakuhyorimawari" value="'.get_post_meta($post->ID,'kakakuhyorimawari',true).'" size="10" /> %　　';
+    echo '</td>';
+
+
+    echo '</tr><tr id="kakakurimawari">';
+
+    // 現行利回り
+    echo '<td>';
+    echo '<label for="kakakurimawari">現行利回り</label> ';
+    echo '</td>';
+
+    echo '<td>';
+    echo '<input type="text" name="kakakurimawari" value="'.get_post_meta($post->ID,'kakakurimawari',true).'" size="10" /> %<br />';
+    echo '</td>';
+
+
+    echo '</tr><tr id="kakakuhoken">';
+
+    // 住宅保険料
+    echo '<td>';
+    echo '<label for="kakakuhoken">住宅保険料</label> ';
+    echo '</td>';
+
+    echo '<td>';
+    echo '<input type="text" name="kakakuhoken" value="'.get_post_meta($post->ID,'kakakuhoken',true).'" size="10" /> 円 (半角数値)  (HOMES 9:不要)<br />';
+    echo '</td>';
+
+
+    echo '</tr><tr id="kakakuhokenkikan">';
+
+    // 住宅保険期間
+    echo '<td>';
+    echo '<label for="kakakuhokenkikan">住宅保険期間</label> ';
+    echo '</td>';
+
+    echo '<td>';
+    echo '<input type="text" name="kakakuhokenkikan" value="'.get_post_meta($post->ID,'kakakuhokenkikan',true).'" size="10" /> 年<br />';
+    echo '</td>';
+
+
+    echo '</tr><tr id="kakakutsumitate">';
+
+
+    // 修繕積立金 売買：マンションのみ　単位：円/
+    echo '<td>';
+    echo '<label for="kakakutsumitate">修繕積立金</label> ';
+    echo '</td>';
+
+    echo '<td>';
+    echo '<input type="text" name="kakakutsumitate" value="'.get_post_meta($post->ID,'kakakutsumitate',true).'" size="10" /> 円 (売買：マンションのみ) (半角数値)<br />';
+    echo '</td>';
+
+
+    echo '</tr><tr id="shakuchiryo">';
+
+    // 借地料
+    echo '<td>';
+    echo '<label for="shakuchiryo">借地料</label> ';
+    echo '</td>';
+
+    echo '<td>';
+    echo '<input type="text" name="shakuchiryo" value="'.get_post_meta($post->ID,'shakuchiryo',true).'" size="10" /> 円　';
+    echo '</td>';
+
+
+    echo '</tr><tr id="shakuchikikan">';
+
+    // 借地契約期間(年)
+    // 借地契約期間(月)
+    echo '<td>';
+    echo '<label for="shakuchikikan">借地契約年月</label> ';
+    echo '</td>';
+
+    echo '<td>';
+    echo '<input type="text" name="shakuchikikan" value="'.get_post_meta($post->ID,'shakuchikikan',true).'" size="10" /> 年/月<br />';
+    echo '</td>';
+
+
+    echo '</tr><tr id="shakuchikubun">';
+
+    // 契約期間(区分)
+    echo '<td>';
+    echo '<label for="shakuchikubun">借地契約(区分)</label> ';
+    echo '</td>';
+
+    echo '<td>';
+    echo '<select name="shakuchikubun">';
+    echo '<option value="">区分選択</option>';
+    echo '<option value="1"';  if(get_post_meta($post->ID,'shakuchikubun',true)=="1"){  	 echo ' selected="selected"';  }
+    echo '">期限</option>';
+    echo '<option value="2"';  if(get_post_meta($post->ID,'shakuchikubun',true)=="2"){  	 echo ' selected="selected"';  }
+    echo '">期間</option>';
+    //text
+    if(get_post_meta($post->ID,'shakuchikubun',true) !='' &&  !is_numeric(get_post_meta($post->ID,'shakuchikubun',true)) ){
+        echo '<option value="'.get_post_meta($post->ID,'shakuchikubun',true).'" selected="selected">'.get_post_meta($post->ID,'shakuchikubun',true).'</option>';
+    }
+    echo '</select><br />';
+    echo '</td>';
+
+
+
+    echo '</tr></table>';
+}
+function fudo_custom_save_kakaku ( $post_id ) {
+    if ( isset($_POST['mycustom_kakaku_name']) ){
+        if ( !wp_verify_nonce( $_POST['mycustom_kakaku_name'], plugin_basename(__FILE__) )) {
+            return $post_id;
+        }
+        if ( isset($_POST['post_type']) && 'fudo' == $_POST['post_type'] ) {
+            if ( !current_user_can( 'edit_page', $post_id )) return $post_id;
+        } else {
+            if ( !current_user_can( 'edit_post', $post_id )) return $post_id;
+        }
+
+
+        // 賃料・価格
+        $my_custom_kakaku_data = isset($_POST['kakaku']) ? $_POST['kakaku'] : '';
+        $my_custom_kakaku_data = mb_convert_kana($my_custom_kakaku_data,"a","UTF-8" );
+        $my_custom_kakaku_data = str_replace(",","",$my_custom_kakaku_data);
+        $my_custom_kakaku_data = str_replace("\\","",$my_custom_kakaku_data);
+        $my_custom_kakaku_data = str_replace("￥","",$my_custom_kakaku_data);
+        if($my_custom_kakaku_data !=get_post_meta($post_id, 'kakaku', true))
+            update_post_meta($post_id, 'kakaku',$my_custom_kakaku_data);
+        elseif($my_custom_kakaku_data == "")
+            update_post_meta($post_id, 'kakaku','');
+
+        // 価格公開
+        $my_custom_kakakukoukai_data = isset($_POST['kakakukoukai']) ? $_POST['kakakukoukai'] : '';
+        if($my_custom_kakakukoukai_data !=get_post_meta($post_id, 'kakakukoukai', true))
+            update_post_meta($post_id, 'kakakukoukai',$my_custom_kakakukoukai_data);
+        elseif($my_custom_kakakukoukai_data == "")
+            delete_post_meta($post_id, 'kakakukoukai',get_post_meta($post_id,'kakakukoukai',true));
+
+        // 価格状態
+        $my_custom_kakakujoutai_data = isset($_POST['kakakujoutai']) ? $_POST['kakakujoutai'] : '';
+        if($my_custom_kakakujoutai_data !=get_post_meta($post_id, 'kakakujoutai', true))
+            update_post_meta($post_id, 'kakakujoutai',$my_custom_kakakujoutai_data);
+        elseif($my_custom_kakakujoutai_data == "")
+            delete_post_meta($post_id, 'kakakujoutai',get_post_meta($post_id,'kakakujoutai',true));
+
+        // 税額
+        $my_custom_kakakuzei_data = isset($_POST['kakakuzei']) ? $_POST['kakakuzei'] : '';
+        $my_custom_kakakuzei_data = mb_convert_kana($my_custom_kakakuzei_data,"a","UTF-8" );
+        $my_custom_kakakuzei_data = str_replace(",","",$my_custom_kakakuzei_data);
+        $my_custom_kakakuzei_data = str_replace("\\","",$my_custom_kakakuzei_data);
+        $my_custom_kakakuzei_data = str_replace("￥","",$my_custom_kakakuzei_data);
+        if($my_custom_kakakuzei_data !=get_post_meta($post_id, 'kakakuzei', true))
+            update_post_meta($post_id, 'kakakuzei',$my_custom_kakakuzei_data);
+        elseif($my_custom_kakakuzei_data == "")
+            delete_post_meta($post_id, 'kakakuzei',get_post_meta($post_id,'kakakuzei',true));
+
+        // 坪単価
+        $my_custom_kakakutsubo_data = isset($_POST['kakakutsubo']) ? $_POST['kakakutsubo'] : '';
+        $my_custom_kakakutsubo_data = mb_convert_kana($my_custom_kakakutsubo_data,"a","UTF-8" );
+        $my_custom_kakakutsubo_data = str_replace(",","",$my_custom_kakakutsubo_data);
+        $my_custom_kakakutsubo_data = str_replace("\\","",$my_custom_kakakutsubo_data);
+        $my_custom_kakakutsubo_data = str_replace("￥","",$my_custom_kakakutsubo_data);
+        if($my_custom_kakakutsubo_data !=get_post_meta($post_id, 'kakakutsubo', true))
+            update_post_meta($post_id, 'kakakutsubo',$my_custom_kakakutsubo_data);
+        elseif($my_custom_kakakutsubo_data == "")
+            delete_post_meta($post_id, 'kakakutsubo',get_post_meta($post_id,'kakakutsubo',true));
+
+        // 共益費・管理費
+        $my_custom_kakakukyouekihi_data = isset($_POST['kakakukyouekihi']) ? $_POST['kakakukyouekihi'] : '';
+        $my_custom_kakakukyouekihi_data = mb_convert_kana($my_custom_kakakukyouekihi_data,"a","UTF-8" );
+        $my_custom_kakakukyouekihi_data = str_replace(",","",$my_custom_kakakukyouekihi_data);
+        $my_custom_kakakukyouekihi_data = str_replace("\\","",$my_custom_kakakukyouekihi_data);
+        $my_custom_kakakukyouekihi_data = str_replace("￥","",$my_custom_kakakukyouekihi_data);
+        if($my_custom_kakakukyouekihi_data !=get_post_meta($post_id, 'kakakukyouekihi', true))
+            update_post_meta($post_id, 'kakakukyouekihi',$my_custom_kakakukyouekihi_data);
+        elseif($my_custom_kakakukyouekihi_data == "")
+            delete_post_meta($post_id, 'kakakukyouekihi',get_post_meta($post_id,'kakakukyouekihi',true));
+
+        // 礼金
+        $my_custom_kakakureikin_data = isset($_POST['kakakureikin']) ? $_POST['kakakureikin'] : '';
+        $my_custom_kakakureikin_data = mb_convert_kana($my_custom_kakakureikin_data,"a","UTF-8" );
+        $my_custom_kakakureikin_data = str_replace(",","",$my_custom_kakakureikin_data);
+        $my_custom_kakakureikin_data = str_replace("\\","",$my_custom_kakakureikin_data);
+        $my_custom_kakakureikin_data = str_replace("￥","",$my_custom_kakakureikin_data);
+        if($my_custom_kakakureikin_data !=get_post_meta($post_id, 'kakakureikin', true))
+            update_post_meta($post_id, 'kakakureikin',$my_custom_kakakureikin_data);
+        elseif($my_custom_kakakureikin_data == "")
+            delete_post_meta($post_id, 'kakakureikin',get_post_meta($post_id,'kakakureikin',true));
+
+        // 敷金
+        $my_custom_kakakushikikin_data = isset($_POST['kakakushikikin']) ? $_POST['kakakushikikin'] : '';
+        $my_custom_kakakushikikin_data = mb_convert_kana($my_custom_kakakushikikin_data,"a","UTF-8" );
+        $my_custom_kakakushikikin_data = str_replace(",","",$my_custom_kakakushikikin_data);
+        $my_custom_kakakushikikin_data = str_replace("\\","",$my_custom_kakakushikikin_data);
+        $my_custom_kakakushikikin_data = str_replace("￥","",$my_custom_kakakushikikin_data);
+        if($my_custom_kakakushikikin_data !=get_post_meta($post_id, 'kakakushikikin', true))
+            update_post_meta($post_id, 'kakakushikikin',$my_custom_kakakushikikin_data);
+        elseif($my_custom_kakakushikikin_data == "")
+            delete_post_meta($post_id, 'kakakushikikin',get_post_meta($post_id,'kakakushikikin',true));
+
+        // 保証金
+        $my_custom_kakakuhoshoukin_data = isset($_POST['kakakuhoshoukin']) ? $_POST['kakakuhoshoukin'] : '';
+        $my_custom_kakakuhoshoukin_data = mb_convert_kana($my_custom_kakakuhoshoukin_data,"a","UTF-8" );
+        $my_custom_kakakuhoshoukin_data = str_replace(",","",$my_custom_kakakuhoshoukin_data);
+        $my_custom_kakakuhoshoukin_data = str_replace("\\","",$my_custom_kakakuhoshoukin_data);
+        $my_custom_kakakuhoshoukin_data = str_replace("￥","",$my_custom_kakakuhoshoukin_data);
+        if($my_custom_kakakuhoshoukin_data !=get_post_meta($post_id, 'kakakuhoshoukin', true))
+            update_post_meta($post_id, 'kakakuhoshoukin',$my_custom_kakakuhoshoukin_data);
+        elseif($my_custom_kakakuhoshoukin_data == "")
+            delete_post_meta($post_id, 'kakakuhoshoukin',get_post_meta($post_id,'kakakuhoshoukin',true));
+
+        // 権利金
+        $my_custom_kakakukenrikin_data = isset($_POST['kakakukenrikin']) ? $_POST['kakakukenrikin'] : '';
+        $my_custom_kakakukenrikin_data = mb_convert_kana($my_custom_kakakukenrikin_data,"a","UTF-8" );
+        $my_custom_kakakukenrikin_data = str_replace(",","",$my_custom_kakakukenrikin_data);
+        $my_custom_kakakukenrikin_data = str_replace("\\","",$my_custom_kakakukenrikin_data);
+        $my_custom_kakakukenrikin_data = str_replace("￥","",$my_custom_kakakukenrikin_data);
+        if($my_custom_kakakukenrikin_data !=get_post_meta($post_id, 'kakakukenrikin', true))
+            update_post_meta($post_id, 'kakakukenrikin',$my_custom_kakakukenrikin_data);
+        elseif($my_custom_kakakukenrikin_data == "")
+            delete_post_meta($post_id, 'kakakukenrikin',get_post_meta($post_id,'kakakukenrikin',true));
+
+
+        // 償却・敷引金
+        $my_custom_kakakushikibiki_data = isset($_POST['kakakushikibiki']) ? $_POST['kakakushikibiki'] : '';
+        $my_custom_kakakushikibiki_data = mb_convert_kana($my_custom_kakakushikibiki_data,"a","UTF-8" );
+        $my_custom_kakakushikibiki_data = str_replace(",","",$my_custom_kakakushikibiki_data);
+        $my_custom_kakakushikibiki_data = str_replace("\\","",$my_custom_kakakushikibiki_data);
+        $my_custom_kakakushikibiki_data = str_replace("￥","",$my_custom_kakakushikibiki_data);
+        if($my_custom_kakakushikibiki_data !=get_post_meta($post_id, 'kakakushikibiki', true))
+            update_post_meta($post_id, 'kakakushikibiki',$my_custom_kakakushikibiki_data);
+        elseif($my_custom_kakakushikibiki_data == "")
+            delete_post_meta($post_id, 'kakakushikibiki',get_post_meta($post_id,'kakakushikibiki',true));
+
+
+        // 更新料
+        $my_custom_kakakukoushin_data = isset($_POST['kakakukoushin']) ? $_POST['kakakukoushin'] : '';
+        $my_custom_kakakukoushin_data = mb_convert_kana($my_custom_kakakukoushin_data,"a","UTF-8" );
+        $my_custom_kakakukoushin_data = str_replace(",","",$my_custom_kakakukoushin_data);
+        $my_custom_kakakukoushin_data = str_replace("\\","",$my_custom_kakakukoushin_data);
+        $my_custom_kakakukoushin_data = str_replace("￥","",$my_custom_kakakukoushin_data);
+        if($my_custom_kakakukoushin_data !=get_post_meta($post_id, 'kakakukoushin', true))
+            update_post_meta($post_id, 'kakakukoushin',$my_custom_kakakukoushin_data);
+        elseif($my_custom_kakakukoushin_data == "")
+            delete_post_meta($post_id, 'kakakukoushin',get_post_meta($post_id,'kakakukoushin',true));
+
+
+        // 満室時表面利回り
+        $my_custom_kakakuhyorimawari_data =isset($_POST['kakakuhyorimawari']) ? $_POST['kakakuhyorimawari'] : '';
+        $my_custom_kakakuhyorimawari_data = mb_convert_kana($my_custom_kakakuhyorimawari_data,"a","UTF-8" );
+        if($my_custom_kakakuhyorimawari_data !=get_post_meta($post_id, 'kakakuhyorimawari', true))
+            update_post_meta($post_id, 'kakakuhyorimawari',$my_custom_kakakuhyorimawari_data);
+        elseif($my_custom_kakakuhyorimawari_data == "")
+            delete_post_meta($post_id, 'kakakuhyorimawari',get_post_meta($post_id,'kakakuhyorimawari',true));
+
+        // 現行利回り
+        $my_custom_kakakurimawari_data = isset($_POST['kakakurimawari']) ? $_POST['kakakurimawari'] : '';
+        $my_custom_kakakurimawari_data = mb_convert_kana($my_custom_kakakurimawari_data,"a","UTF-8" );
+        if($my_custom_kakakurimawari_data !=get_post_meta($post_id, 'kakakurimawari', true))
+            update_post_meta($post_id, 'kakakurimawari',$my_custom_kakakurimawari_data);
+        elseif($my_custom_kakakurimawari_data == "")
+            delete_post_meta($post_id, 'kakakurimawari',get_post_meta($post_id,'kakakurimawari',true));
+
+        // 住宅保険料
+        $my_custom_kakakuhoken_data = isset($_POST['kakakuhoken']) ? $_POST['kakakuhoken'] : '';
+        $my_custom_kakakuhoken_data = mb_convert_kana($my_custom_kakakuhoken_data,"a","UTF-8" );
+        $my_custom_kakakuhoken_data = str_replace(",","",$my_custom_kakakuhoken_data);
+        $my_custom_kakakuhoken_data = str_replace("\\","",$my_custom_kakakuhoken_data);
+        $my_custom_kakakuhoken_data = str_replace("￥","",$my_custom_kakakuhoken_data);
+        if($my_custom_kakakuhoken_data !=get_post_meta($post_id, 'kakakuhoken', true))
+            update_post_meta($post_id, 'kakakuhoken',$my_custom_kakakuhoken_data);
+        elseif($my_custom_kakakuhoken_data == "")
+            delete_post_meta($post_id, 'kakakuhoken',get_post_meta($post_id,'kakakuhoken',true));
+
+        // 住宅保険期間
+        $my_custom_kakakuhokenkikan_data = isset($_POST['kakakuhokenkikan']) ? $_POST['kakakuhokenkikan'] : '';
+        if($my_custom_kakakuhokenkikan_data !=get_post_meta($post_id, 'kakakuhokenkikan', true))
+            update_post_meta($post_id, 'kakakuhokenkikan',$my_custom_kakakuhokenkikan_data);
+        elseif($my_custom_kakakuhokenkikan_data == "")
+            delete_post_meta($post_id, 'kakakuhokenkikan',get_post_meta($post_id,'kakakuhokenkikan',true));
+
+        // 借地料
+        $my_custom_shakuchiryo_data = isset($_POST['shakuchiryo']) ? $_POST['shakuchiryo'] : '';
+        $my_custom_shakuchiryo_data = mb_convert_kana($my_custom_shakuchiryo_data,"a","UTF-8" );
+        $my_custom_shakuchiryo_data = str_replace(",","",$my_custom_shakuchiryo_data);
+        $my_custom_shakuchiryo_data = str_replace("\\","",$my_custom_shakuchiryo_data);
+        $my_custom_shakuchiryo_data = str_replace("￥","",$my_custom_shakuchiryo_data);
+        if($my_custom_shakuchiryo_data !=get_post_meta($post_id, 'shakuchiryo', true))
+            update_post_meta($post_id, 'shakuchiryo',$my_custom_shakuchiryo_data);
+        elseif($my_custom_shakuchiryo_data == "")
+            delete_post_meta($post_id, 'shakuchiryo',get_post_meta($post_id,'shakuchiryo',true));
+
+        // 契約期間(年)
+        // 契約期間(月)
+        $my_custom_shakuchikikan_data = isset($_POST['shakuchikikan']) ? $_POST['shakuchikikan'] : '';
+        if( strcmp($my_custom_shakuchikikan_data,get_post_meta($post_id, 'shakuchikikan', true)) != 0 )
+            update_post_meta($post_id, 'shakuchikikan',$my_custom_shakuchikikan_data);
+        elseif($my_custom_shakuchikikan_data == "")
+            delete_post_meta($post_id, 'shakuchikikan',get_post_meta($post_id,'shakuchikikan',true));
+
+        // 契約期間(区分)
+        $my_custom_shakuchikubun_data = isset($_POST['shakuchikubun']) ? $_POST['shakuchikubun'] : '';
+        if($my_custom_shakuchikubun_data !=get_post_meta($post_id, 'shakuchikubun', true))
+            update_post_meta($post_id, 'shakuchikubun',$my_custom_shakuchikubun_data);
+        elseif($my_custom_shakuchikubun_data == "")
+            delete_post_meta($post_id, 'shakuchikubun',get_post_meta($post_id,'shakuchikubun',true));
+
+        // 修繕積立金
+        $my_custom_kakakutsumitate_data = isset($_POST['kakakutsumitate']) ? $_POST['kakakutsumitate'] : '';
+        $my_custom_kakakutsumitate_data = mb_convert_kana($my_custom_kakakutsumitate_data,"a","UTF-8" );
+        $my_custom_kakakutsumitate_data = str_replace(",","",$my_custom_kakakutsumitate_data);
+        $my_custom_kakakutsumitate_data = str_replace("\\","",$my_custom_kakakutsumitate_data);
+        $my_custom_kakakutsumitate_data = str_replace("￥","",$my_custom_kakakutsumitate_data);
+        if($my_custom_kakakutsumitate_data !=get_post_meta($post_id, 'kakakutsumitate', true))
+            update_post_meta($post_id, 'kakakutsumitate',$my_custom_kakakutsumitate_data);
+        elseif($my_custom_kakakutsumitate_data == "")
+            delete_post_meta($post_id, 'kakakutsumitate',get_post_meta($post_id,'kakakutsumitate',true));
+    }else{
+        return $post_id;
+    }
+}
+add_action('admin_menu', 'fudo_custom_kinsenmen');
+add_action('save_post', 'fudo_custom_save_kakaku');
+
+
+// 物件カテゴリごとの投稿ページ表示する
+function add_custom_fudo_edit_menu() {
+
+    // 売買
+    add_submenu_page( 'edit.php?post_type=fudo', '売買物件一覧', '売買物件一覧', 'publish_posts', 'edit.php?post_type=fudo&bukken=baibai' );
+    // 賃貸
+    add_submenu_page( 'edit.php?post_type=fudo', '賃貸物件一覧', '賃貸物件一覧', 'publish_posts', 'edit.php?post_type=fudo&bukken=chintai' );
+	// 事務所
+    add_submenu_page( 'edit.php?post_type=fudo', '事務所物件一覧', '事務所物件一覧', 'publish_posts', 'edit.php?s=事務所&post_status=all&post_type=fudo&action=-1&m=0&shubetsu=1&paged=1&action2=-1' );
+}
+add_action( 'admin_menu', 'add_custom_fudo_edit_menu' );
+
+// 投稿画面で表示をカスタマイズするJavaScriptのコードを挿入する
+function fudo_post_custom_script($hook) {
+    if (in_array($hook, array("post.php", "post-new.php"))) {
+        global $post;
+        if ('fudo' === $post->post_type) {
+            wp_enqueue_script("fudo_admin_cusomize", get_bloginfo('template_url').'/js/fudo_field_customize.js', ['jquery']);
+        }
+    }
+}
+
+add_action('admin_enqueue_scripts', 'fudo_post_custom_script');
