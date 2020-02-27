@@ -80,3 +80,4 @@
 <?php wp_body_open(); ?>
 
 <?php include("inc_header.php"); ?>
+<?php include_once dirname(__FILE__) . '/lib/nr_common.php'; ?>

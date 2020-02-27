@@ -36,7 +36,7 @@
 	<?php else:?>
 		<p class="img"><img src="<?php echo get_template_directory_uri(); ?>/_dummy/33677989.png">
 	<?php endif;?>
-	<span class="msg"><?php the_excerpt( $post_id ) ?></span>
+	<span class="msg"><?php echo ltl_get_the_excerpt( $post_id, 13 ); ?></span>
 	<span class="kind">RENT</span></p>
 	<p class="price">月<?php echo FudoUtil::kakaku( $post_id, 0, 1 ); ?><span class="year">(共益費<?php echo FudoUtil::kyoueki_kannrihi( $post_id );?>)</span></p>
 	<ul class="info1">

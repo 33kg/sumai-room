@@ -574,7 +574,6 @@ function twentysixteen_widget_tag_cloud_args( $args ) {
 }
 add_filter( 'widget_tag_cloud_args', 'twentysixteen_widget_tag_cloud_args' );
 
-
 /*
 * スラッグ名が日本語だったら自動的に投稿タイプ＋id付与へ変更（スラッグを設定した場合は適用しない）
 */
@@ -585,9 +584,6 @@ function auto_post_slug( $slug, $post_ID, $post_status, $post_type ) {
     return $slug;
 }
 add_filter( 'wp_unique_post_slug', 'auto_post_slug', 10, 4  );
-
-
-
 
 /*
 * スラッグ名をIDとして出力
@@ -613,4 +609,24 @@ function my_body_id() {
   } 
   $body_id = esc_attr($slug);
   echo ( $body_id ) ? 'id="' . $body_id . '"' : '' ;
+}
+
+/*
+* ループ外から記事の抜粋を取得する
+*/
+function ltl_get_the_excerpt($post_id='', $length=120){
+	global $post; $post_bu = '';
+
+	if(!$post_id){
+		$post_id = get_the_ID();
+	} else {
+		$post_bu = $post;
+		$post = get_post($post_id);
+	}
+	$mojionly = strip_tags($post->post_content);
+	if(mb_strlen($mojionly ) > $length) $t = '..';
+	$content =  mb_substr($mojionly, 0, $length);
+	$content .= $t;
+	if($post_bu) $post = $post_bu;
+	return $content;
 }
