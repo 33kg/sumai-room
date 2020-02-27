@@ -41,7 +41,7 @@
 	<p class="price">月<?php echo FudoUtil::kakaku( $post_id, 0, 1 ); ?><span class="year">(共益費<?php echo FudoUtil::kyoueki_kannrihi( $post_id );?>)</span></p>
 	<ul class="info1">
 	<li><?php echo FudoUtil::shozaichi( $post_id ); ?>　<?php echo FudoUtil::madori( $post_id );?></li>
-	<li>築年：<?php FudoUtil::chikunenn( $post_id ); ?></li>
+	<li>築年：<?php echo FudoUtil::chikunenn( $post_id ); ?></li>
 	</ul>
 	<ul class="info2">
 	<li>敷金：<?php echo FudoUtil::shikikin( $post_id ); ?></li>

@@ -79,15 +79,7 @@ get_header(); ?>
 	    <div class="wrap-gallery"><!--MV・商品画像-->
 		    <div class="swiper-container gallery-top2">
 		        <div class="swiper-wrapper">
-					<div class="swiper-slide"><?php include("inc_property_buy.php"); ?></div>
-
-					<?php //繰り返し部分  ?>
-					<div class="swiper-slide"><?php include("inc_property_buy.php"); ?></div>
-					<div class="swiper-slide"><?php include("inc_property_buy.php"); ?></div>
-					<div class="swiper-slide"><?php include("inc_property_buy.php"); ?></div>
-					<div class="swiper-slide"><?php include("inc_property_buy.php"); ?></div>
-					<div class="swiper-slide"><?php include("inc_property_buy.php"); ?></div>
-					<?php // ./繰り返し部分  ?>
+					<?php include("inc_property_buy.php"); ?>
 				</div>
 				<!-- If we need navigation buttons -->
 				<div class="wrap-button">
