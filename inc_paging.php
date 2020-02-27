@@ -1,8 +1,7 @@
 	<ul class="paging">
-	<li><a href="#" class="nolink">&lt;&lt;</a></li><?php //非アクティブ時は「nolink」Classを与えてください ?>
-	<li><a href="#" class="nolink">&lt;</a></li>
-	<li><a href="#">1</a></li>
-	<li><a href="#">2</a></li>
-	<li><a href="#">&gt;</a></li>
-	<li><a href="#">&gt;&gt;</a></li>
+	<?php 
+	$paged = ViewUtil::getPaged();
+	$pagination = ViewUtil::pagination(ceil($estate_count / $posts_per_page), $paged,  3, ViewUtil::getUrl());
+	echo $pagination;
+	?>
 	</ul>

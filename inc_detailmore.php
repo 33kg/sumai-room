@@ -1,5 +1,5 @@
 			<ul class="detail-more">
-			<li><span>所在地</span>山形県寒河江市 元町2丁目10-24</li>
+			<li><span>所在地</span><?php echo FudoUtil::shozaichi($meta_id)?></li>
 			<li><span>敷金</span>１ヶ月</li>
 			<li><span>礼金</span>１ヶ月</li>
 			<li><span>仲介料</span>１ヶ月</li>

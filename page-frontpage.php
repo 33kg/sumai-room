@@ -8,7 +8,7 @@
  */
 
 get_header(); ?>
-<?php include_once dirname(__FILE__) . '/../lib/nr_common.php'; ?>
+
 <div class="content-area" style="min-height:800px;">
 
     <div class="wrap-gallery"><!--MV・商品画像-->
