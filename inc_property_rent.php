@@ -17,7 +17,7 @@
 		$image_sql .= "SELECT P.ID,P.guid";
 		$image_sql .= " FROM $wpdb->posts AS P";
 		$image_sql .= " WHERE P.post_type ='attachment' AND P.guid LIKE '%/$fudoimg_data' ";
-		$iamge_metas = $wpdb->get_row($image_sql);
+		$image_metas = $wpdb->get_row($image_sql);
 
 		$attachmentid = '';
 		if(!empty($iamge_metas)) {

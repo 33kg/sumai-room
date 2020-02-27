@@ -8,6 +8,7 @@
  */
 
 get_header(); ?>
+<?php include_once dirname(__FILE__) . '/../lib/nr_common.php'; ?>
 <div class="content-area" style="min-height:800px;">
 
     <div class="wrap-gallery"><!--MV・商品画像-->
@@ -52,7 +53,7 @@ get_header(); ?>
 	    <div class="wrap-gallery"><!--MV・商品画像-->
 		    <div class="swiper-container gallery-top2">
 		        <div class="swiper-wrapper">
-					<?php //include("inc_property_rent.php"); ?>
+					<?php include("inc_property_rent.php"); ?>
 				</div>
 				<!-- If we need navigation buttons -->
 				<div class="wrap-button">
