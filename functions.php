@@ -635,3 +635,27 @@ function ltl_get_the_excerpt($post_id='', $length=120){
 * 不動産プラグインsingle-fudo.php読み込みフィルタの解除
 */
 remove_filter( 'template_include', 'get_post_type_single_template_fudou' );
+
+/* 
+* 不動産プラグインarchive-fudo.phpとarchive-fudo-loop.phpの読み込みフィルタの解除 
+*/
+remove_filter( 'template_include', 'get_post_type_archive_template_fudou' , 11);
+//オリジナルテーマ内 archive-fudo.php を読み込むように再設定。
+function fudo_body_org_class( $class ) {
+   $class[0] = 'archive archive-fudo';
+   return $class;
+}
+function get_post_type_archive_org_template( $template = '' ) {
+   global $wp_query;
+   $cat = $wp_query->get_queried_object();
+   $cat_name = isset( $cat->taxonomy ) ? $cat->taxonomy : '';
+ 
+   if ( isset( $_GET['bukken'] ) || isset( $_GET['bukken_tag'] ) 
+         || $cat_name == 'bukken' || $cat_name =='bukken_tag' ) {
+      status_header( 200 );
+      $template = locate_template( array('archive-fudo.php', 'archive.php') );
+      add_filter( 'body_class', 'fudo_body_org_class' );
+    }
+   return $template;
+}
+add_filter( 'template_include', 'get_post_type_archive_org_template' , 11 );
