@@ -1,5 +1,5 @@
 <?php
-get_header(); 
+require_once dirname(__FILE__) . '/lib/nr_common.php';
 
 $s = isset($_GET['s']) ? $_GET['s'] : '';
 
@@ -31,6 +31,7 @@ $ord = stripslashes($_GET['ord']);
 
 	global $wpdb;
 	global $work_setsubi;
+
 
 	//newup_mark
 	$newup_mark = get_option('newup_mark');
@@ -589,17 +590,17 @@ $ord = stripslashes($_GET['ord']);
 
 		//売買
 		if($bukken_shubetsu == '1' || (intval($bukken_shubetsu) < 3000 && intval($bukken_shubetsu) > 1000) || $shub == '1' ) {
-			$title =  '売買 > '.$org_title.' ';
+			$title =  '売買物件'.$org_title.' ';
 		}
 
 		//賃貸
 		if($bukken_shubetsu == '2' || intval($bukken_shubetsu) > 3000 || $shub == '2' ) {
-			$title =  '賃貸 > '.$org_title.' ';
+			$title =  '賃貸物件 '.$org_title.' ';
 		}
 	    return $title;
 	}
 
-
+get_header();
 
 
 	//SQL タクソノミー用(デフォルト)
@@ -1885,267 +1886,40 @@ $ord = stripslashes($_GET['ord']);
 	$plugin_url = WP_PLUGIN_URL .'/fudou/';
 
 ?>
-<?php //echo ViewUtil::getUrl(array('paged', 'so', 'ord'))?>
 
-	<div class="section"><h3>検索結果</h3>
-		<div class="in_box">
-	
-
+<div class="content-area" style="min-height:800px;">
 <input type="hidden" id="now_url" value="<?php echo ViewUtil::getUrl(array('paged', 'num'))?>">
 <input type="hidden" id="now_url_none_sort" value="<?php echo ViewUtil::getUrl(array('paged', 'so', 'ord'))?>">
 <input type="hidden" id="template_url" value="<?php bloginfo('template_url'); ?>">
-<!--以下デフォルト-->
 
+	<ul class="breadlist">
+	<li><a href="<?php echo esc_url( home_url( '/' ) ); ?>">住まいるーむ情報館</a></li>
+	<?php if( $shub == 1 ): ?>
+	<li><a href="<?php echo esc_url( home_url( '/' ) ); ?>search_buy">売買検索</a></li>
+	<?php else: ?>
+	<li><a href="<?php echo esc_url( home_url( '/' ) ); ?>search_rent">賃貸検索</a></li>
+	<?php endif; ?>
+	</ul>
 
+	<section class="wrap-block wrap-form">
+		<h2>物件検索結果</h2>
+	</section>
 
-			<?php //wp_title( '|', true, 'right' ); ?>
-
-
-<?php
-		//ソート
-
-		if($metas_co != 0 ){
-			$kak_img = '<img src="'.$plugin_url.'img/sortbtms_.png" border="0" align="absmiddle">';
-			if($bukken_sort=='kak' && $_GET['ord']=='')
-				$kak_img = '<img src="'.$plugin_url.'img/sortbtms_asc.png" border="0" align="absmiddle">';
-			if($bukken_sort=='kak' && $_GET['ord']=='d')
-				$kak_img = '<img src="'.$plugin_url.'img/sortbtms_desc.png" border="0" align="absmiddle">';
-
-
-			if($bukken_sort_data2 == "post_modified" && $_GET['so'] == '')
-				$kak_img = '<img src="'.$plugin_url.'img/sortbtms_.png" border="0" align="absmiddle">';
-
-
-			$tam_img = '<img src="'.$plugin_url.'img/sortbtms_.png" border="0" align="absmiddle">';
-			if($bukken_sort=='tam' && $_GET['ord']=='')
-			$tam_img = '<img src="'.$plugin_url.'img/sortbtms_asc.png" border="0" align="absmiddle">';
-			if($bukken_sort=='tam' && $_GET['ord']=='d')
-			$tam_img = '<img src="'.$plugin_url.'img/sortbtms_desc.png" border="0" align="absmiddle">';
-
-			$mad_img = '<img src="'.$plugin_url.'img/sortbtms_.png" border="0" align="absmiddle">';
-			if($bukken_sort=='mad' && $_GET['ord']=='')
-			$mad_img = '<img src="'.$plugin_url.'img/sortbtms_asc.png" border="0" align="absmiddle">';
-			if($bukken_sort=='mad' && $_GET['ord']=='d')
-			$mad_img = '<img src="'.$plugin_url.'img/sortbtms_desc.png" border="0" align="absmiddle">';
-
-			$sho_img = '<img src="'.$plugin_url.'img/sortbtms_.png" border="0" align="absmiddle">';
-			if($bukken_sort=='sho' && $_GET['ord']=='')
-			$sho_img = '<img src="'.$plugin_url.'img/sortbtms_asc.png" border="0" align="absmiddle">';
-			if($bukken_sort=='sho' && $_GET['ord']=='d')
-			$sho_img = '<img src="'.$plugin_url.'img/sortbtms_desc.png" border="0" align="absmiddle">';
-
-			$tac_img = '<img src="'.$plugin_url.'img/sortbtms_.png" border="0" align="absmiddle">';
-			if($bukken_sort=='tac' && $_GET['ord']=='')
-			$tac_img = '<img src="'.$plugin_url.'img/sortbtms_asc.png" border="0" align="absmiddle">';
-			if($bukken_sort=='tac' && $_GET['ord']=='d')
-			$tac_img = '<img src="'.$plugin_url.'img/sortbtms_desc.png" border="0" align="absmiddle">';
-
-			$page_navigation = '<div id="nav-above1" class="navigation">';
-			$page_navigation .= '<div class="nav-previous">';
-
-
-			//条件検索
-			if($bukken_slug_data=="jsearch"){
-
-				//url生成
-
-				//間取り
-				$madori_url = '';
-				if(!empty($madori_id)) {
-					$i=0;
-					foreach($madori_id as $meta_box){
-						$madori_url .= '&amp;mad[]='.$madori_id[$i];
-						$i++;
-					}
-				}
-
-
-				//設備条件
-				$setsubi_url = '';
-				if(!empty($set_id)) {
-					$i=0;
-					foreach($set_id as $meta_box){
-						$setsubi_url .= '&amp;set[]='.$set_id[$i];
-						$i++;
-					}
-				}
-
-				$add_url  = '';
-
-
-				//複数種別
-
-				$add_url  .= '&amp;shub='.$shub;
-
-				if (is_array($bukken_shubetsu)) {
-					$i=0;
-					foreach($bukken_shubetsu as $meta_set){
-						$add_url  .= '&amp;shu[]='.$bukken_shubetsu[$i];
-						$i++;
-					}
-
-				} else {
-					$add_url  .= '&amp;shu='.$bukken_shubetsu;
-				} 
-
-				$add_url .= '&amp;ros='.$ros_id;
-				$add_url .= '&amp;eki='.$eki_id;
-				$add_url .= '&amp;ken='.$ken_id;
-				$add_url .= '&amp;sik='.$sik_id;
-				$add_url .= '&amp;kalc='.$kalc_data;
-				$add_url .= '&amp;kahc='.$kahc_data;
-				$add_url .= '&amp;kalb='.$kalb_data;
-				$add_url .= '&amp;kahb='.$kahb_data;
-				$add_url .= '&amp;hof='.$hof_data;
-				$add_url .= $madori_url;
-				$add_url .= '&amp;tik='.$tik_data;
-				$add_url .= '&amp;mel='.$mel_data;
-				$add_url .= '&amp;meh='.$meh_data;
-				$add_url .= $setsubi_url;
-
-				if($sikirei_data !="")
-					$add_url .= '&amp;skr=0';
-
-
-				$joken_url  = $site .'?bukken=jsearch';
-
-
-				//複数市区
-				if (is_array($ksik_id)) {
-					$i=0;
-					foreach($ksik_id as $meta_set){
-						$add_url .= '&amp;ksik[]='.$ksik_id[$i];
-						$i++;
-					}
-				}
-
-				//複数駅
-				if(is_array( $rosen_eki )  ){
-					$i=0;
-					foreach($rosen_eki as $meta_set){
-						$add_url .= '&amp;re[]='.$rosen_eki[$i];
-						$i++;
-					}
-				}
-
-
-
-				$joken_url .=$add_url;
-
-			}else{
-
-				//カテゴリ・タグ
-
-				if($_GET['bukken_tag']!=''){
-					$joken_url = $site.'?bukken_tag='.$slug_data.'';
-				}else{
-					$joken_url = $site.'?bukken='.$slug_data.'';
-				}
-
-				$add_url  = '&amp;shu='.$bukken_shubetsu;
-				$add_url .= '&amp;mid='.$mid_id;
-				$add_url .= '&amp;nor='.$nor_id;
-
-			if( $searchtype !='' )
-				$add_url .= '&amp;st='.$searchtype;
-
-				$joken_url .= $add_url;
-
-			}
-
-
-			$page_navigation .= '</div>';
-			$page_navigation .= '<div class="nav-next">';
-
-			if($bukken_order=="d"){
-				$bukken_order = "";
-			}else{
-				$bukken_order = "d";
-			}
-
-			//ページナビ
-			$page_navigation .= f_page_navi($metas_co,$posts_per_page,$bukken_page_data,$bukken_sort,$bukken_order,$bukken_page_data,$s,$joken_url);
-
-			$page_navigation .= '</div>';
-			$page_navigation .= '</div><!-- #nav-above -->';
-
-//			echo $page_navigation;
-		}
-	//パーマリンクチェック
-	$permalink_structure = get_option('permalink_structure');
-	if ( $permalink_structure != '' ) {
-
-		$add_url_point = mb_strlen( $add_url, "utf-8" ) ;
-		if( $add_url_point > 5 ){
-			$add_url_point = $add_url_point - 5;
-			$add_url = '?' . myRight( $add_url, $add_url_point ) ;
-		}else{
-			$add_url = '';
-		}
-	}		
-		
-
-	//カウント
-	$estate_kaiin_count = 0;
-	$metas_co = 0;
-	if($sql !=''){
-		$_estateCountHash = $termRelModel->getEstateCount($sql, $shub);
-		$metas_co = $_estateCountHash['metas_co'];
-		$estate_kaiin_count = $_estateCountHash['estate_kaiin_count'];
-	}
-?>
-<?php $sortArray = FudoUtil::select_sort($so,$ord)?>
-<div class="infobox clearfix">
-		<div class="sort">
-				表示順<select name="sort" id="sort">
-				<?php foreach($sortArray as $sort):?>
-					<option value="<?php echo $sort['id']?>"<?php echo $sort['selected']?>><?php echo $sort['name']?></option>
-				<?php endforeach?>
-				</select>	
-		</div>
-	<?php $postPerPageArray = FudoUtil::select_post_per_page($posts_per_page);?>
-		<div class="sort">
-			表示順<select name="num" id="post_per_page">
-			<?php foreach($postPerPageArray as $ppp):?>
-			<option value="<?php echo $ppp['id']?>" <?php echo $ppp['selected']?>><?php echo $ppp['name']?></option>
-			<?php endforeach?>
-			</select>	
-		</div>
-		<?php $estate_count = $metas_co?>
-
-	<br>
-<?php 
-	
-	$paged = ViewUtil::getPaged();
-	$pagination = ViewUtil::pagination(ceil($estate_count / $posts_per_page), $paged,  3, ViewUtil::getUrl());
-	echo $pagination;
-?>
-</div>
-
-<?php
-
-
+	<section class="wrap-block wrap-result">
+	<?php
 //	loop SQL
 	if($sql !=''){
-		//$sql2 = $wpdb->prepare($sql2);
 		$metas = $wpdb->get_results( $sql2, ARRAY_A );
-//		$tmps = array();
 		$tmpIds = array();
 		foreach($metas as $meta){
 			$tmpIds[] = $meta['object_id'];
-//			break;
 		}
 		if(!empty($metas)) {
 			$meta_datas = $postModel->getPosts($tmpIds);
-			$img_infos = $postModel->getFudoImgs($tmpIds, array(1,2));
+			$img_infos = $postModel->getFudoImgs($tmpIds, array(1,2,3,4,5));
 			$attachment_data = $postModel->getAttachimentImgDatas($tmpIds);
-//			$postModel->getAttachmentMetaData($tmpIds);
-//			var_dump($imgInfos);
-//			exit;
-//			foreach ( $metas as $meta ) {
+
 			foreach ( $meta_datas as $meta_data ) {
-//				$meta_id = $meta['object_id'];	//post_id
-//				$meta_data = get_post( $meta_id ); 
 				$meta_id = $meta_data->ID;
 				$meta_title =  $meta_data->post_title;
 				//ユーザー別会員物件リスト
@@ -2164,55 +1938,12 @@ $ord = stripslashes($_GET['ord']);
 		echo "物件がありませんでした。";
 	}
 
+	//	loop SQL END
+	?>
+	</section>
+	<?php include("inc_paging.php"); //ページング ?>
 
-//	loop SQL END
 
-?>
 
-		</div><!--.in_box-->
-	</div><!--.section-->
- <?php dynamic_sidebar('syousai_widgets'); ?>
-
-			<?php //echo $page_navigation; ?>
-			<div class="infobox clearfix">
-				<?php echo $pagination;?>
-			</div>
-
-<script src="<?php echo site_url()?>/wp-content/themes/<?php echo SN_THEME_DIR?>/js/jquery.cookie.js"></script>
-<script src="<?php echo site_url()?>/wp-content/themes/<?php echo SN_THEME_DIR?>/js/cart.js"></script>
-<script type="text/javascript">
-	jQuery(document).ready(function($){
-		var now_url = $("#now_url").val();
-		var template_url = $("#template_url").val();
-		$(".addKouho").click(function(){
-			var id = $(this).attr("id");
-			var key = id.replace("addKouho_", "");
-			if(!hasCookie(key)){
-				addCookie(key);
-				$("#kouhoimg_" + key).attr("src", template_url + "/images/loop/btn_cartin.png");
-			}else{
-				deleteCookie(key);
-				$("#kouhoimg_" + key).attr("src", template_url + "/images/loop/btn_cart.png");
-			}
-		});
-		$('#post_per_page').change(function() {
-			var num = $(this).val();
-			var url = now_url + "&num=" + num;
-			$(location).attr('href',url);
-		});
-		$('#sort').change(function() {
-			var now_url_none_sort = $("#now_url_none_sort").val();
-			var tmp = $(this).val();
-			var tmps = tmp.split('_')
-			var so = tmps[0];
-			var ord = tmps[1];
-			var url = now_url_none_sort + "&so=" + so + "&ord=" + ord;
-			$(location).attr('href',url);
-		});
-	});
-	
-</script>
+</div><!-- .content-area -->
 <?php get_footer(); ?>
-
-
-

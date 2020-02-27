@@ -54,6 +54,11 @@ if(my_custom_kaiin_view('kaiin_gazo', 0, 1)){
 	<div class="summary">
 		<img src="<?php echo $imgLargeArray[0]['img_url']; ?>">
 		<h2><?php echo FudoUtil::bukkennmei($post_id); ?></h2>
+		<?php if( $syubetu == SYUBETU_CHINTAI ): ?>
+			<p class="price"><span class="price1">家賃</span><?php echo FudoUtil::kakaku( $post_id, 0, 1 ); ?><span class="price2">（共益費 <?php echo FudoUtil::kyoueki_kannrihi( $post_id );?>）</span></p>
+		<?php else: ?>
+			<p class="price"><span class="price1">価格</span><?php echo FudoUtil::kakaku( $post_id, 0, 1 ); ?></p>
+		<?php endif; ?>
 		<?php if($syubetu == SYUBETU_CHINTAI):?>
 			<?php include("inc/bukken/inc-fudoinfo-chintai.php"); ?>
 		<?php elseif($syubetu == SYUBETU_URICHI):?>

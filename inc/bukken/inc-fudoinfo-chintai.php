@@ -1,4 +1,3 @@
-        <p class="price"><span class="price1">家賃</span><?php echo FudoUtil::kakaku( $post_id, 0, 1 ); ?><span class="price2">（共益費 <?php echo FudoUtil::kyoueki_kannrihi( $post_id );?>）</span></p>
         <ul class="detail-more">
         <li><span>所在地</span><?php echo FudoUtil::shozaichi( $post_id ); ?></li>
         <li><span>敷金</span><?php echo FudoUtil::shikikin( $post_id ); ?></li>

@@ -1,4 +1,4 @@
-        <p class="price"><span class="price1">価格</span><?php echo FudoUtil::kakaku( $post_id, 0, 1 ); ?></p>
+        
         <ul class="detail-more">
         <li><span>所在地</span><?php echo FudoUtil::shozaichi( $post_id ); ?></li>
         <li><span>面積</span><?php echo FudoUtil::tochikukaku_menseki( $post_id ); ?><?php echo FudoUtil::keisoku_housiki( $post_id ); ?></li>
