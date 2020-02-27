@@ -12,7 +12,7 @@
 <li>
 <a href="<?php the_permalink(); ?>">
 	<?php if( has_post_thumbnail() ) :?>
-		<p class="img"><?php the_post_thumbnail(); ?></p>
+		<p class="img"><?php the_post_thumbnail( 'thumbnail' ); ?></p>
 	<?php else : ?>
 		<p class="img"><img src="<?php echo get_template_directory_uri(); ?>/_dummy/30564108.png"></p>
 	<?php endif; ?>
