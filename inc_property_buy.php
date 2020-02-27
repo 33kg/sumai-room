@@ -38,7 +38,7 @@
 	<?php endif;?>
 	<span class="msg"><?php echo ltl_get_the_excerpt( $post_id, 13 ); ?></span>
 	<span class="kind">BUY</span></p>
-	<p class="price">759万円</p>
+	<p class="price"><?php echo FudoUtil::kakaku( $post_id, 0, 1 ); ?></p>
 	<ul class="info1">
 	<li><?php echo FudoUtil::shozaichi( $post_id ); ?>　<?php echo FudoUtil::madori( $post_id );?></li>
 	<li>築年：<?php echo FudoUtil::chikunenn( $post_id ); ?></li>
