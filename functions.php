@@ -630,3 +630,8 @@ function ltl_get_the_excerpt($post_id='', $length=120){
 	if($post_bu) $post = $post_bu;
 	return $content;
 }
+
+/*
+* 不動産プラグインsingle-fudo.php読み込みフィルタの解除
+*/
+remove_filter( 'template_include', 'get_post_type_single_template_fudou' );

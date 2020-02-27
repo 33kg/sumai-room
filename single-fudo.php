@@ -7,13 +7,26 @@
  * @since Twenty Sixteen 1.0
  */
 
-get_header(); ?>
+get_header();
+
+// 不動産情報取得用
+the_post();
+global $post_id;
+global $syubetu;
+$post_id = $post->ID;
+$syubetu = FudoUtil::getSyubetu( $post_id );
+?>
+
 <div class="content-area" style="min-height:800px;">
 
 	<ul class="breadlist">
 	<li><a href="<?php echo esc_url( home_url( '/' ) ); ?>">住まいるーむ情報館</a></li>
+	<?php if( $syubetu == SYUBETU_CHINTAI ): ?>
 	<li><a href="<?php echo esc_url( home_url( '/' ) ); ?>search_rent">賃貸検索</a></li>
-	<li><a href="<?php echo esc_url( home_url( '/' ) ); ?>search_rent">ブライトヒルズ元町</a></li>
+	<?php else: ?>
+	<li><a href="<?php echo esc_url( home_url( '/' ) ); ?>search_buy">売買検索</a></li>
+	<?php endif; ?>
+	<li><a href="<?php the_permalink(); ?>"><?php echo FudoUtil::bukkennmei($post_id); ?></a></li>
 	</ul>
 
 
@@ -21,9 +34,20 @@ get_header(); ?>
 
 	<div class="summary">
 		<img src="<?php echo get_template_directory_uri(); ?>/_dummy/aed9f95a2b16b96b01a8421fbb5715df-e1439795971398.png">
-		<h2>ブライトヒルズ元町</h2>
-		<p class="price"><span class="price1">家賃</span>71,000円<span class="price2">（共益費　なし）</span></p>
-		<?php include("inc_detailmore.php"); //物件情報追記 ?>
+		<h2><?php echo FudoUtil::bukkennmei($post_id); ?></h2>
+		<?php if($syubetu == SYUBETU_CHINTAI):?>
+			<?php include("inc/bukken/inc-fudoinfo-chintai.php"); ?>
+		<?php elseif($syubetu == SYUBETU_URICHI):?>
+			<?php include("inc/bukken/inc-fudoinfo-urichi.php"); ?>
+		<?php elseif($syubetu == SYUBETU_URIKODATE):?>
+			<?php include("inc/bukken/inc-fudoinfo-urikodate.php");	?>
+		<?php elseif($syubetu == SYUBETU_URIMANSION):?>
+			<?php include("inc/bukken/inc-fudoinfo-urimansion.php"); ?>
+		<?php elseif($syubetu == SYUBETU_URITATEMONO_ICHIBU):?>
+			<?php include("inc/bukken/inc-fudoinfo-uritatemono-ichibu.php"); ?>
+		<?php elseif($syubetu == SYUBETU_URITATEMONO_ZENBU):?>
+			<?php include("inc/bukken/inc-fudoinfo-uritatemono-zenbu.php");	?>
+		<?php endif?>
 	</div>
 
 	<div class="detail">
@@ -84,68 +108,23 @@ get_header(); ?>
 				</script>
 	    </div>
 
-		<p class="copy">ゆったり夜を過ごせる空間<br>追い焚き付きで毎日ぽかぽか</p>
-		<p class="copy-body">テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト</p>
+		<?php remove_filter('the_content', 'wpautop'); ?>
+		<p class="copy"><?php the_content(); ?></p>
+		
 
-		<ul class="detail-more2">
-		<li><span>向き</span>南</li>
-		<li><span>現状</span>空家</li>
-		<li><span>保証料</span>あり（80%）</li>
-		<li><span>更新料</span>00,000円</li>
-		<li><span>引き渡し</span>即時</li>
-		<li><span>面積</span>73㎡</li>
-		<li><span>駐車場区分</span>空きあり</li>
-		<li><span>駐車料金</span>２台込み</li>
-		<li><span>小学校</span>中部小学校</li>
-		<li><span>中学校</span>陵南中学校</li>
-		</ul>
-
-		<dl class="detail-more3">
-		<dt>設備・条件</dt>
-		<dd>
-			<ul class="icon-property">
-			<li><img src="<?php echo get_template_directory_uri(); ?>/_dummy/icon-property01.png"></li>
-			<li><img src="<?php echo get_template_directory_uri(); ?>/_dummy/icon-property02.png"></li>
-			<li><img src="<?php echo get_template_directory_uri(); ?>/_dummy/icon-property03.png"></li>
-			<li><img src="<?php echo get_template_directory_uri(); ?>/_dummy/icon-property04.png"></li>
-			<li><img src="<?php echo get_template_directory_uri(); ?>/_dummy/icon-property05.png"></li>
-			<li><img src="<?php echo get_template_directory_uri(); ?>/_dummy/icon-property06.png"></li>
-			<li><img src="<?php echo get_template_directory_uri(); ?>/_dummy/icon-property07.png"></li>
-			<li><img src="<?php echo get_template_directory_uri(); ?>/_dummy/icon-property08.png"></li>
-			<li><img src="<?php echo get_template_directory_uri(); ?>/_dummy/icon-property09.png"></li>
-			<li><img src="<?php echo get_template_directory_uri(); ?>/_dummy/icon-property10.png"></li>
-			<li><img src="<?php echo get_template_directory_uri(); ?>/_dummy/icon-property11.png"></li>
-			<li><img src="<?php echo get_template_directory_uri(); ?>/_dummy/icon-property12.png"></li>
-			</ul>
-		</dd>
-		</dl>
-		<dl class="detail-more3">
-		<dd>
-			<ul class="icon-property2">
-
-			<li>楽器不可</li>
-			<li>２人入居可</li>
-			<li>ペット対応</li>
-			<li>保証人要</li>
-			<li>ガスコンロ</li>
-			<li>給湯</li>
-			<li>追い焚き</li>
-			<li>洗髪洗面化粧台</li>
-			<li>バス専用</li>
-			<li>シャワー</li>
-			<li>トイレ専用</li>
-			<li>バス・トイレ別</li>
-			<li>エアコン</li>
-			<li>地デジ対応</li>
-			<li>プロパンガス</li>
-			<li>排水下水</li>
-			<li>エレベータ</li>
-			<li>駐車場有</li>
-			<li>町内会費別途</li>
-			</ul>
-
-		</dd>
-		</dl>
+		<?php if($syubetu == SYUBETU_CHINTAI):?>
+			<?php include("inc/bukken/inc-fudodetail-chintai.php"); ?>
+		<?php elseif($syubetu == SYUBETU_URICHI):?>
+			<?php include("inc/bukken/inc-fudodetail-urichi.php"); ?>
+		<?php elseif($syubetu == SYUBETU_URIKODATE):?>
+			<?php include("inc/bukken/inc-fudodetail-urikodate.php");	?>
+		<?php elseif($syubetu == SYUBETU_URIMANSION):?>
+			<?php include("inc/bukken/inc-fudodetail-urimansion.php"); ?>
+		<?php elseif($syubetu == SYUBETU_URITATEMONO_ICHIBU):?>
+			<?php include("inc/bukken/inc-fudodetail-uritatemono-ichibu.php"); ?>
+		<?php elseif($syubetu == SYUBETU_URITATEMONO_ZENBU):?>
+			<?php include("inc/bukken/inc-fudodetail-uritatemono-zenbu.php");	?>
+		<?php endif?>
 
 		<div class="map">
 			<strong>MAP</strong>
@@ -166,11 +145,9 @@ get_header(); ?>
 		</div>
 
 		<section class="wrap-block wrap-recently_seen">
-			<h2>最近見た物件</h2>
+			<h2>この他の物件</h2>
 			<ul class="recent-search">
-			<li><?php include("inc_property_rent.php"); ?></li>
-			<li><?php include("inc_property_rent.php"); ?></li>
-			<li><?php include("inc_property_rent.php"); ?></li>
+			<?php include("inc_property_rent.php"); ?>
 			</ul>
 			<div class="wrap-link"><a href="#">more</a></div>
 		</section>
