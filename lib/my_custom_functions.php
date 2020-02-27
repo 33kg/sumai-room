@@ -890,7 +890,15 @@ function my_custom_setsubi_print($post_id) {
 	}
 	echo get_post_meta($post_id,'setsubisonota',true);
 }
-
+function my_custom_setsubi_get($post_id) {
+	global $work_setsubi;
+	$result = array();
+	$setsubi_data = get_post_meta($post_id, 'setsubi', true);
+	foreach($work_setsubi as $meta_box){
+		if( strpos($setsubi_data, $meta_box['code']) ){	$result[] = $meta_box['name']; }
+	}
+	return $result;
+}
 
 
 //250	設備・条件（カスタマイズ）

@@ -638,6 +638,7 @@ class FudoUtil{
 		return $tmp_data;
 	}
 	public static function tyuusyajo_ryoukin($post_id){
+		$tmp_data = '';
 		$chushajoryokin_data = get_post_meta($post_id,'chushajoryokin',true);
 		if($chushajoryokin_data !="")$tmp_data .= ' ' . $chushajoryokin_data.'円';
 		echo $tmp_data;
@@ -663,6 +664,9 @@ class FudoUtil{
 		$ret = ob_get_contents();
 		ob_end_clean();
 		return $ret;
+	}
+	public static function get_syuuhen_setubi($post_id){
+		return my_custom_setsubi_get( $post_id );
 	}
 	public static function syougakkou($post_id){
 		return get_post_meta($post_id, 'shuuhenshougaku', true);
