@@ -27,6 +27,9 @@
 			$fudoimg_data1 = wp_get_attachment_image_src($attachmentid, 'thumbnail');
 			$fudoimg_url = $fudoimg_data1[0];
 		}
+		$shozaichi = FudoUtil::shozaichi( $post_id );
+		$shozaichi = str_replace( '山形県', '', $shozaichi );
+
 ?>
 <div class="swiper-slide">
 <div class="property"><?php //販売用表示 ?>
@@ -40,7 +43,7 @@
 	<span class="kind">BUY</span></p>
 	<p class="price"><?php echo FudoUtil::kakaku( $post_id, 0, 1 ); ?></p>
 	<ul class="info1">
-	<li><?php echo FudoUtil::shozaichi( $post_id ); ?>　<?php echo FudoUtil::madori( $post_id );?></li>
+	<li><?php echo $shozaichi; ?>　<?php echo FudoUtil::madori( $post_id );?></li>
 	<li>築年：<?php echo FudoUtil::chikunenn( $post_id ); ?></li>
 	</ul>
 	<ul class="info3">
