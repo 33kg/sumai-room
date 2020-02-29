@@ -43,7 +43,7 @@
 				<select name="kahb" id="kahb">
 				<?php foreach($kakakuHighHash as $key => $value):?>
 					<?php $selected = !$key ? 'selected':'0';?>
-					<option value="<?php echo $key?>"><?php echo $value?></option>
+					<option value="<?php echo $key?>" <?php echo $selected?>><?php echo $value?></option>
 					<?php endforeach?>
 	          	</select>
 		  	</li>

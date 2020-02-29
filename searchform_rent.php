@@ -43,7 +43,7 @@
 				<select name="kahc" id="kahc">
 				<?php foreach($tinryouHighHash as $key => $value):?>
 					<?php $selected = !$key ? 'selected':'';?>
-					<option value="<?php echo $key?>"><?php echo $value?></option>
+					<option value="<?php echo $key?>" <?php echo $selected?>><?php echo $value?></option>
 					<?php endforeach?>
 	          	</select>
 		  	</li>
