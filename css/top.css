@@ -60,7 +60,17 @@
 	width:50px;
 	margin-right:10px;
 	}
+@media (max-width: 769px) {
+	.wrap-block h2{
+		border:none;
+		}
+	.wrap-block h2 ul.icon{
+		position: relative;
+		text-align: center;
+		}
 
+
+}
 /*
 --------------------------------------------*
 Contents
@@ -97,6 +107,23 @@ ul.contents li span{
 	color: #fff;
 	filter: drop-shadow(0 1px 3px rgba(0,0,0,1.0));
 	}
+
+@media (max-width: 769px) {
+
+	ul.contents li{
+		width:100%;
+		margin-right:0;
+		margin-bottom: 10px;
+		}
+	ul.contents li img{
+		border-radius:10px;
+		}
+	ul.contents li span{
+		top: calc(30px - 0px);
+		}
+
+}
+
 /*
 --------------------------------------------*
 Topics
@@ -122,6 +149,24 @@ ul.topics li:nth-child(2){
 ul.topics li:nth-child(3n+2){
 	margin-right:0;
 	}
+@media (max-width: 769px) {
+
+	ul.topics li,
+	ul.topics li:nth-child(1),
+	ul.topics li:nth-child(2),
+	ul.topics li:nth-child(3n+2){
+		width:calc((100% - 20px)/2);
+		margin-right:10px;
+		}
+	ul.topics li:nth-child(2n){
+		margin-right:0;
+		}
+	ul.topics li:nth-child(5){
+		display: none;
+		}
+
+}
+
 
 ul.topics li p{
 	margin-bottom:5px;
@@ -131,6 +176,10 @@ ul.topics li p{
 	}
 ul.topics li p.img{
 	width:100%;
+	}
+ul.topics li p.img img{
+	width: 100%;
+	height:auto;
 	}
 ul.topics li p.title{
 	width:100%;
@@ -181,6 +230,22 @@ Access
 	width:100%;
 	height:200px;
 	}
+@media (max-width: 769px) {
+
+	.wrap-access,
+	.wrap-access div.tex {
+	    width: 100%;
+		}
+	.wrap-access p.shop-name{
+		font-size:18px;
+		font-weight: bold;
+		margin-bottom:10px;
+		}
+	.wrap-access div.map {
+		width: 100%;
+		}
+
+}
 
 /*
 --------------------------------------------*
@@ -196,6 +261,7 @@ ul.others li{
 	margin-bottom:25px;
 	position: relative;
 	letter-spacing: -0.4em;
+	vertical-align: top;
 	}
 ul.others li:nth-child(3n){
 	margin-right:0;
@@ -225,3 +291,26 @@ ul.others li span:after{
     border-top: solid 25px #fff;
     z-index: 1;
 	}
+
+@media (max-width: 769px) {
+
+	ul.others li,
+	ul.others li:nth-child(3n){
+		width:calc((100% - 10px)/2);
+		margin-right:10px;
+		}
+	ul.others li:nth-child(2n){
+		margin-right:0;
+		}
+	ul.others li span{
+		position: relative;
+		width:100%;
+		padding:0;
+		margin:0 0 10px 0;
+		font-size:12px;
+		}
+	ul.others li span:after{
+		content: none;
+		}
+
+}

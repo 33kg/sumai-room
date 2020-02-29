@@ -7,7 +7,6 @@ img,video{
 	vertical-align: top;
 	max-width: 100%;
 	}
-
 /*
 =================================================== header
 */
@@ -132,7 +131,7 @@ footer ul.nav1 li strong{
     margin-bottom: 5px;
     font-weight: normal;
     background: #E1E1E6;
-    width: 30%;
+    width: 150px;
 	height: 20px;
     position: relative;
 	}
@@ -175,7 +174,7 @@ footer ul.nav2 li:nth-child(1) img{
 	width:76px;
 	}
 footer ul.nav2 li:nth-child(2){
-	width:320px;
+	width:280px;
 	}
 footer ul.nav2 li:nth-child(2) span{
 	display: block;
@@ -183,7 +182,7 @@ footer ul.nav2 li:nth-child(2) span{
 	margin-bottom:10px;
 	}
 footer ul.nav2 li:nth-child(2) p{
-	font-size:36px;
+	font-size:30px;
 	font-family: 'Anton', sans-serif;
 	letter-spacing: 6.2px;
 	}
@@ -197,10 +196,14 @@ footer ul.nav2 li:nth-child(3){
 	width:120px;
 	}
 footer ul.nav2 li:nth-child(4){
-	width:calc(100% - 76px - 320px - 120px - 80px);
+	width:270px;
+	font-size: 12px;
+	}
+footer ul.nav2 li:last-child{
+	width:calc(100% - 76px - 280px - 120px - 370px);
 	text-align: right;
 	}
-footer ul.nav2 li:nth-child(4) img{
+footer ul.nav2 li:last-child img{
 	width:76px;
 	}
 footer ul.nav2 li:nth-child(4) a{
@@ -223,12 +226,12 @@ footer ul.nav3 li{
 	width: 130px;
 	}
 footer ul.nav3 li:nth-child(1){
-	border-right:2px solid #E1E1E6;
+	/*border-right:2px solid #E1E1E6;*/
 	margin-right:10px;
 	padding-right:10px;
 	}
-footer ul.nav3 li:nth-child(3){
-	width: calc(100% - 270px);
+footer ul.nav3 li:last-child{
+	width: calc(100% - 140px);
 	}
 footer p.copyright{
 	color:#fff;
@@ -249,21 +252,34 @@ a {
 	color: inherit;
 }
 .cp_cont {
-	height: 65vh;
-}
+	overflow: hidden;
+	}
+.cp_cont ul.icon{
+	position: relative;
+	text-align: center;
+	letter-spacing: -0.4em;
+	}
+.cp_cont ul.icon li{
+	display: inline-block;
+	width:50px;
+	margin-right:10px;
+	}
+
+
+
 .cp_offcm01 {
 	position: absolute;
 	top: 20px;
 	right: 20px;
 	display: inline-block;
 	z-index: 101;
-	display: none;
+	/*display: none;*/
 }
 /* menu */
 .cp_offcm01 .cp_menu {
 	position: fixed;
 	top: 0;
-	right: -100vw;
+	right: -100%;
 	width:100%;
 	height: 100%;
 	cursor: pointer;
@@ -271,24 +287,30 @@ a {
 	        transition: 0.53s transform;
 	-webkit-transition-timing-function: cubic-bezier(.38,.52,.23,.99);
 	        transition-timing-function: cubic-bezier(.38,.52,.23,.99);
-	background-color: #000000;
-	opacity: 0.8;
-}
-.cp_offcm01 .cp_menu ul {
-	margin: 80px 0 0 0;
-	padding: 0;
-}
-.cp_offcm01 .cp_menu li {
-	list-style: none;
+	background-color: #ffffff;
+	opacity: 0.9;
+	padding:40px;
 }
 
-
-.cp_offcm01 .cp_menu li a {
+.cp_offcm01 .cp_menu{
+	overflow: scroll;
+	-webkit-overflow-scrolling: touch
+	}
+.cp_offcm01 .cp_menu ul.nav1{
+	margin-bottom:40px;
+	}
+.cp_offcm01 .cp_menu ul.nav1 li,
+.cp_offcm01 .cp_menu ul.nav1 li:nth-child(1){
+	line-height:30px;
+	margin-bottom: 10px;
+	}
+.cp_offcm01 .cp_menu ul.nav1 li strong{
 	display: block;
-	padding: 10px 20px;
-	text-decoration: none;
-	color: #ffffff;
-}
+	font-size: 18px;
+	font-weight: bold;
+	margin-bottom: 10px;
+	}
+
 
 .cp_offcm01 #cp_toggle01 {
 	position: absolute;
@@ -395,7 +417,8 @@ header a.btn-menu:hover{
 
 
 header{
-	height: auto;
+	width: 100%;
+	height: 70px;
 	}
 
 header ul {
@@ -404,10 +427,14 @@ header ul {
 
 header ul li:nth-child(1){
 	width: 50%;
-	padding:20px;
+	padding:0;
 	}
+header ul li:nth-child(1) a {
+    top: 0;
+    left: 10px;
+}
 header ul li:nth-child(1) img{
-    width: 100%;
+    width: 50px;
 	}
 
 .pc-menu li:nth-child(n+2){
@@ -415,23 +442,25 @@ header ul li:nth-child(1) img{
 	}
 
 footer{
-	padding:40px;
+	padding:20px;
 	}
 
-footer ul li{
-	margin-bottom:40px;
+footer ul.nav1,
+footer ul.nav2{
+	display: none;
 	}
-
-footer ul li:nth-child(1),
-footer ul li:nth-child(n+2){
-	width:100%!important;
+footer ul.nav3{
+	margin:0;
 	}
-
-footer ul li:nth-child(1) img {
-    width: 60%;
+footer ul.nav3 li,
+footer ul.nav3 li:last-child{
+	width:100%;
+	margin-bottom:10px;
+	text-align: left;
 	}
-footer ul li:nth-child(1){
-	margin-bottom:60px;
+footer p.copyright{
+	text-align: left;
+	font-size:10px;
 	}
 
 .cp_offcm01{
