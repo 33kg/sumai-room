@@ -158,7 +158,7 @@ if(my_custom_kaiin_view('kaiin_gazo', 0, 1)){
 			<h2>お問い合わせ</h2>
 
 			<ul>
-			<li><img src="<?php echo get_template_directory_uri(); ?>/images/logo_line_square.png"></li>
+			<li><a href="http://nav.cx/i9s8fwx" target="_blank"><img src="<?php echo get_template_directory_uri(); ?>/images/logo_line_square.png"></a></li>
 			<li>この物件の<br>お問合わせ</li>
 			<li>
 				<span class="tex">お電話でもお問い合わせいただけます</span>
@@ -168,18 +168,6 @@ if(my_custom_kaiin_view('kaiin_gazo', 0, 1)){
 			</ul>
 		</div>
 
-		<section class="wrap-block wrap-recently_seen">
-			<h2>この他の物件</h2>
-			<ul class="recent-search">
-			<?php if( $syubetu == SYUBETU_CHINTAI ) {
-				include("inc_others_rent.php");
-			} else {
-				include("inc_others_buy.php");
-			}		
-			?>
-			</ul>
-			<div class="wrap-link"><a href="#">more</a></div>
-		</section>
 	</div>
 	
 </div>
