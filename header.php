@@ -40,9 +40,6 @@
 <link href="<?php echo get_template_directory_uri(); ?>/css/pages.css" rel="stylesheet" type="text/css">
 <?php endif; ?>
 
-
-	<link href="<?php echo get_template_directory_uri(); ?>/css/smt.css" rel="stylesheet" type="text/css">
-
 	<? /*GoogleFonts*/ ?>
 	<link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP:300,400,700&display=swap" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Anton|Noto+Sans+JP&display=swap" rel="stylesheet">
@@ -62,11 +59,12 @@
 	<link href="<?php echo get_template_directory_uri(); ?>/modaal/modaal.min.css" rel="stylesheet">
 
 	<link href="<?php echo get_template_directory_uri(); ?>/css/pages.css" rel="stylesheet" type="text/css">
+
 <?php if(is_front_page()) : ?>
 	<link href="<?php echo get_template_directory_uri(); ?>/css/top.css" rel="stylesheet" type="text/css">
 <?php endif; ?>
 
-
+	<link href="<?php echo get_template_directory_uri(); ?>/css/smt.css" rel="stylesheet" type="text/css">
 
 	<style>
 
