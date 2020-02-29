@@ -58,6 +58,7 @@ $kakakuLowHash = array(
 	10000=>'1億円',
 );
 $kakakuHighHash = array(
+	0=> '上限なし',	
 	500=>'500万円',
 	1000=>'1000万円',
 	1500=>'1500万円',
@@ -74,7 +75,6 @@ $kakakuHighHash = array(
 	8000=> '8000万円',
 	9000=> '9000万円',
 	10000=> '1億円',
-	0=> '上限なし',	
 );
 $tinryouLowHash = array(
 	0=> '下限なし',
@@ -108,6 +108,7 @@ $tinryouLowHash = array(
 );
 
 $tinryouHighHash = array(
+	0=> '上限なし',
 	3=> '3万円',
 	4=> '4万円',
 	5=> '5万円',
@@ -134,7 +135,6 @@ $tinryouHighHash = array(
 	80=> '80万円',
 	90=> '90万円',
 	100=> '100万円',
-	0=> '上限なし',
 
 );
 $tohohunHash = array(
@@ -175,6 +175,7 @@ $mensekiLowHash = array(
 	1000=> '1000m&sup2;',
 );
 $mensekiHighHash = array(
+	0=> '上限なし',
 	10=> '10m&sup2;',
 	15=> '15m&sup2;',
 	20=> '20m&sup2;',
@@ -201,7 +202,6 @@ $mensekiHighHash = array(
 	800=> '800m&sup2;',
 	900=> '900m&sup2;',
 	1000=> '1000m&sup2;',
-	0=> '上限なし',
 );
 
 ?>
@@ -216,15 +216,6 @@ $mensekiHighHash = array(
 		<h2>売買物件検索</h2>
 		<?php include("searchform_buy.php"); //売買検索フォーム ?>
 	</section>
-
-
-	<section class="wrap-block wrap-recently_seen">
-		<h2>この他の物件</h2>
-		<ul class="recent-search">
-		<?php include("inc_others_buy.php"); ?>
-		</ul>
-	</section>
-
 
 
 </div><!-- .content-area -->

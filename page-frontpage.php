@@ -14,9 +14,9 @@ get_header(); ?>
     <div class="wrap-gallery"><!--MV・商品画像-->
 	    <div class="swiper-container gallery-top">
 	        <div class="swiper-wrapper">
-				<div class="swiper-slide"><img src="<?php echo get_template_directory_uri(); ?>/_dummy/35224855.png"></div>
-				<div class="swiper-slide"><img src="<?php echo get_template_directory_uri(); ?>/_dummy/35224855.png"></div>
-				<div class="swiper-slide"><img src="<?php echo get_template_directory_uri(); ?>/_dummy/35224855.png"></div>
+				<div class="swiper-slide"><a href="<?php echo esc_url( home_url( '/' ) ); ?>about-concierge"><img src="<?php echo get_template_directory_uri(); ?>/images/top/slider_20200228_01.png"></a></div>
+				<div class="swiper-slide"><a href="<?php echo esc_url( home_url( '/' ) ); ?>japan-vacanthouse-support"><img src="<?php echo get_template_directory_uri(); ?>/images/top/slide_akiya_PC.png"></a></div>
+				<div class="swiper-slide"><a href="<?php echo esc_url( home_url( '/' ) ); ?>inheritance"><img src="<?php echo get_template_directory_uri(); ?>/images/top/slide_souzoku_PC.png"></a></div>
 			</div>
 			<!-- If we need navigation buttons -->
 			<div class="wrap-button">
@@ -33,7 +33,13 @@ get_header(); ?>
 					autoplay: {
 							delay: 3000,
 						},
-			        loop: true
+			        loop: true,
+					breakpoints: {
+					767: {
+						slidesPerView: 1,
+						spaceBetween: 0
+						}
+					}
 			    });
 			</script>
 	    </div>
@@ -45,8 +51,8 @@ get_header(); ?>
 			<ul class="icon">
 			<li><a href="<?php echo esc_url( home_url( '/' ) ); ?>search-rent"><img src="<?php echo get_template_directory_uri(); ?>/images/icon-rent.png" alt=""></a></li>
 			<li><a href="<?php echo esc_url( home_url( '/' ) ); ?>search-buy"><img src="<?php echo get_template_directory_uri(); ?>/images/icon-buy.png" alt=""></a></li>
-			<li><a href="#"><img src="<?php echo get_template_directory_uri(); ?>/images/icon-line.png" alt=""></a></li>
-			<li><a href="#"><img src="<?php echo get_template_directory_uri(); ?>/images/icon-mail.png" alt=""></a></li>
+			<li><a href="http://nav.cx/i9s8fwx"><img src="<?php echo get_template_directory_uri(); ?>/images/icon-line.png" alt=""></a></li>
+			<li><a href="<?php echo esc_url( home_url( '/' ) ); ?>contact"><img src="<?php echo get_template_directory_uri(); ?>/images/icon-mail.png" alt=""></a></li>
 			</li>
 		</h2>
 		<h3>RENT</h3>
@@ -65,12 +71,18 @@ get_header(); ?>
 						loop: true,
 						slidesPerView: 4,
 						spaceBetween: 20,
-				        loop: true
+				        loop: true,
+						breakpoints: {
+						767: {
+							slidesPerView: 2,
+							spaceBetween: 10
+							}
+						}
 				    });
 				</script>
 		    </div>
 	    </div>
-		<div class="wrap-link"><a href="#">more</a></div>
+		<div class="wrap-link"><a href="https://www.sumai-room.com/fudo/?bukken=jsearch&shub=2&kalc=0&kahc=0&mel=0&meh=0&tik=0">more</a></div>
 	</section>
 
 	<section class="wrap-block">
@@ -91,29 +103,50 @@ get_header(); ?>
 						loop: true,
 						slidesPerView: 4,
 						spaceBetween: 20,
-				        loop: true
+				        loop: true,
+						breakpoints: {
+						767: {
+							slidesPerView: 2,
+							spaceBetween: 10
+							}
+						}
 				    });
 				</script>
 		    </div>
 	    </div>
-		<div class="wrap-link"><a href="#">more</a></div>
+		<div class="wrap-link"><a href="https://www.sumai-room.com/fudo/?bukken=jsearch&shub=1&kalb=0&kahb=0&mel=0&meh=0&tik=0">more</a></div>
 
 	</section>
 
 	<section class="wrap-block">
 		<h2>CONTENTS<span>不動産のお悩み解決します</span></h2>
 		<ul class="contents">
-		<li><a href="https://fsouzoku.jp/"><img src="<?php echo get_template_directory_uri(); ?>/images/top/pc_bn_souzoku.png"><span>不動産相続の相談窓口</span></a></li>
-		<li><a href="<?php echo esc_url( home_url( '/' ) ); ?>management"><img src="<?php echo get_template_directory_uri(); ?>/images/top/pc_bn_akiya.png"><span>空き家管理サービス</span></a></li>
-		<li><a href="<?php echo esc_url( home_url( '/' ) ); ?>owner"><img src="<?php echo get_template_directory_uri(); ?>/images/top/pc_bn_owner.png"><span>オーナー様へ</span></a></li>
-		<li><a href="<?php echo esc_url( home_url( '/' ) ); ?>assessment"><img src="<?php echo get_template_directory_uri(); ?>/images/top/pc_bn_satei.png"><span>売却査定依頼</span></a></li>
+		<li><a href="<?php echo esc_url( home_url( '/' ) ); ?>inheritance"><img src="<?php echo get_template_directory_uri(); ?>/images/top/pc_bn_souzoku.png"><span>不動産相続の相談窓口</span></a></li>
+		<li><a href="<?php echo esc_url( home_url( '/' ) ); ?>japan-vacanthouse-support"><img src="<?php echo get_template_directory_uri(); ?>/images/top/pc_bn_akiya.png"><span>空き家管理サービス</span></a></li>
+		<li><a href="<?php echo esc_url( home_url( '/' ) ); ?>for-owners/"><img src="<?php echo get_template_directory_uri(); ?>/images/top/pc_bn_owner.png"><span>オーナー様へ</span></a></li>
+		<li><a href="<?php echo esc_url( home_url( '/' ) ); ?>contact"><img src="<?php echo get_template_directory_uri(); ?>/images/top/pc_bn_satei.png"><span>売却査定依頼</span></a></li>
 		</ul>
 	</section>
 
 	<section class="wrap-block">
 		<h2>TOPICS<span>住まいるーむ情報</span></h2>
 		<ul class="topics">
+<?php
+	$args = array(
+		'posts_per_page' => 5,
+		'post_type' => 'post',
+		'category' => array('newstopics', 'news'),
+
+	);
+	$topics = get_posts( $args );
+	foreach( $topics as $post ) :
+		setup_postdata( $post );
+?>
 			<?php include("inc_topics.php"); ?>
+<?php
+	endforeach;
+	wp_reset_postdata();
+?>
 		</ul>
 		<div class="wrap-link"><a href="<?php echo esc_url( home_url( '/' ) ); ?>topics">more</a></div>
 	</section>
@@ -150,9 +183,9 @@ get_header(); ?>
 	<section class="wrap-block">
 		<h2>OTHERS</h2>
 		<ul class="others">
-		<li><a href="<?php echo esc_url( home_url( '/' ) ); ?>tought"><img src="<?php echo get_template_directory_uri(); ?>/images/top/others_omoi.png"><span>住まいるーむ情報館の想い</span></a></li>
-		<li><a href="https://ameblo.jp/happy-sumairoom/"><img src="<?php echo get_template_directory_uri(); ?>/images/top/others_blog.png"><span>社長の「幸せ・ブログ」</span></a></li>
-		<li><a href="<?php echo esc_url( home_url( '/' ) ); ?>presidents-style"><img src="<?php echo get_template_directory_uri(); ?>/images/top/others_president.png"><span>社長の流儀</span></a></li>
+		<li><a href="<?php echo esc_url( home_url( '/' ) ); ?>company"><img src="<?php echo get_template_directory_uri(); ?>/images/top/others_omoi.png"><span>住まいるーむ情報館の想い</span></a></li>
+		<li><a href="<?php echo esc_url( home_url( '/' ) ); ?>blog-happy-sumairoom"><img src="<?php echo get_template_directory_uri(); ?>/images/top/others_blog.png"><span>社長の「幸せ・ブログ」</span></a></li>
+		<li><a href="<?php echo esc_url( home_url( '/' ) ); ?>president-style"><img src="<?php echo get_template_directory_uri(); ?>/images/top/others_president.png"><span>社長の流儀</span></a></li>
 		</ul>
 	</section>
 

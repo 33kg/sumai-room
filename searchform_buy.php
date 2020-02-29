@@ -92,6 +92,7 @@
 			<?php endforeach?>
 			</ul>
 		</dd>
+<?php /*/ ?>
 		<dt>条件</dt>
 		<dd>
 			<ul class="list3">
@@ -101,6 +102,7 @@
 		
 			</ul>
 		</dd>
+<?php /*/ ?>
 		</dl>
 	<button type="submit" class="search-submit"><span class="screen-reader-text">上記の条件で検索</span></button>
 </form>

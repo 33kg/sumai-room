@@ -38,7 +38,7 @@ get_header(); ?>
 				<tr>
 				<th>所在地</th>
 				<td>本　店　山形県寒河江市大字寒河江字横道137<br>
-					山形店　山形県山形市鈴川三丁目1-22</td>
+					山形店　山形県山形市鈴川町三丁目1-22</td>
 				</tr>
 				<tr>
 				<th>設立</th>
@@ -72,7 +72,8 @@ get_header(); ?>
 				</tr>
 				<tr>
 				<th>所属団体</th>
-				<td>（公社）山形県宅地建物取引業協会会員</td>
+				<td>東北地区不動産公正取引協議会加盟<br>
+					（公社）山形県宅地建物取引業協会会員</td>
 				</tr>
 				</table>
 			</div>
@@ -146,7 +147,7 @@ get_header(); ?>
 			<h3>STORES<span>店舗情報</span></h3>
 			<div class="wrap-inner">
 				<strong>有限会社 住まいるーむ情報館　本店</strong>
-				<p class="tex">〒991-0041　山形県寒河江市大字寒河江横道137
+				<p class="tex">〒991-0041　山形県寒河江市大字寒河江横道137<br>
 					TEL: 0237-86-6396<br>
 					FAX: 0237-86-6390<br>
 					MAIL: info@sumai-room.com<br>

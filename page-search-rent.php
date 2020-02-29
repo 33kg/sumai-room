@@ -51,6 +51,7 @@ $tinryouLowHash = array(
 );
 
 $tinryouHighHash = array(
+	0=> '上限なし',
 	3=> '3万円',
 	4=> '4万円',
 	5=> '5万円',
@@ -59,7 +60,6 @@ $tinryouHighHash = array(
 	8=> '8万円',
 	9=> '9万円',
 	10=> '10万円',
-	0=> '上限なし',
 );
 
 $mensekiLowHash = array(
@@ -88,6 +88,7 @@ $mensekiLowHash = array(
 	1000=> '1000m&sup2;',
 );
 $mensekiHighHash = array(
+	0=> '上限なし',
 	10=> '10m&sup2;',
 	15=> '15m&sup2;',
 	20=> '20m&sup2;',
@@ -110,7 +111,7 @@ $mensekiHighHash = array(
 	800=> '800m&sup2;',
 	900=> '900m&sup2;',
 	1000=> '1000m&sup2;',
-	0=> '上限なし',
+
 );
 
 ?>
@@ -125,15 +126,6 @@ $mensekiHighHash = array(
 		<h2>賃貸物件検索</h2>
 		<?php include("searchform_rent.php"); //賃貸検索フォーム ?>
 	</section>
-
-
-	<section class="wrap-block wrap-recently_seen">
-		<h2>この他の物件</h2>
-		<ul class="recent-search">
-		<?php include("inc_others_rent.php"); ?>
-		</ul>
-	</section>
-
 
 
 </div><!-- .content-area -->
