@@ -6,7 +6,12 @@ module.css
 	display: none;
 	}
 input[type="submit" i] {
-	width: 100px;
+    width: 200px;
+    display: block;
+    margin: 20px auto;
+    border-style: none;
+    border: 2px solid #3c7fb1;
+    height: 50px;
 	}
 input.btn-contactform[type="button"] {
 	background:red;
