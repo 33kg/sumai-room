@@ -4,7 +4,7 @@
 		<li><span>現況</span><?php echo FudoUtil::genkyou( $post_id ); ?></li>
 		<li><span>引き渡し</span><?php echo FudoUtil::hikiwatasi_jiki( $post_id ); ?></li>
 		<li><span>セットバック</span><?php echo FudoUtil::setback( $post_id ); ?></li>
-		<li><span>私道負担</span><?php echo FudoUtil::tochishido( $post_id ); ?></li>
+		<li><span>接面道路</span><?php echo FudoUtil::tochishido( $post_id ); ?></li>
 		<li><span>間取り内訳</span><?php echo FudoUtil::madori_utiwake( $post_id ); ?></li>
 		<li><span>周辺環境</span><?php echo FudoUtil::syuuhen_kankyou( $post_id ); ?></li>
 		</ul>
