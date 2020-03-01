@@ -20,16 +20,18 @@
 		$image_metas = $wpdb->get_row($image_sql);
 
 		$attachmentid = '';
-		if(!empty($iamge_metas)) {
+		if(!empty($image_metas)) {
 			$attachmentid  =  $image_metas->ID;
 		}
 		if ($attachmentid != '') {
 			$fudoimg_data1 = wp_get_attachment_image_src($attachmentid, 'thumbnail');
 			$fudoimg_url = $fudoimg_data1[0];
 		}
+		
+		//所在地から余計なものをなくす
 		$shozaichi = FudoUtil::shozaichi( $post_id );
 		$shozaichi = str_replace( '山形県', '', $shozaichi );
-
+		$shozaichi = str_replace( '西村山郡', '', $shozaichi );
 ?>
 <div class="swiper-slide">
 <div class="property"><?php //販売用表示 ?>

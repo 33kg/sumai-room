@@ -20,13 +20,18 @@
 		$image_metas = $wpdb->get_row($image_sql);
 
 		$attachmentid = '';
-		if(!empty($iamge_metas)) {
+		if(!empty($image_metas)) {
 			$attachmentid  =  $image_metas->ID;
 		}
 		if ($attachmentid != '') {
 			$fudoimg_data1 = wp_get_attachment_image_src($attachmentid, 'thumbnail');
 			$fudoimg_url = $fudoimg_data1[0];
 		}
+
+		//所在地から余計なものをなくす
+		$shozaichi = FudoUtil::shozaichi( $post_id );
+		$shozaichi = str_replace( '山形県', '', $shozaichi );
+		$shozaichi = str_replace( '西村山郡', '', $shozaichi );
 ?>
 <div class="swiper-slide">
 <div class="property"><?php //賃貸用表示 ?>
@@ -40,7 +45,7 @@
 	<span class="kind">RENT</span></p>
 	<p class="price">月<?php echo FudoUtil::kakaku( $post_id, 0, 1 ); ?><span class="year">(共益費<?php echo FudoUtil::kyoueki_kannrihi( $post_id );?>)</span></p>
 	<ul class="info1">
-	<li><?php echo FudoUtil::shozaichi( $post_id ); ?>　<?php echo FudoUtil::madori( $post_id );?></li>
+	<li><?php echo $shozaichi; ?>　<?php echo FudoUtil::madori( $post_id );?></li>
 	<li>築年：<?php echo FudoUtil::chikunenn( $post_id ); ?></li>
 	</ul>
 	<ul class="info2">
